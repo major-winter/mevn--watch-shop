@@ -4,28 +4,19 @@
       <div class="container"></div>
     </section>
 
-    <section class="nav">
-      <div class="container d-flex nav--mobile">
-        <div class="mobile-icon" @click="navbarHandler">
-          <i class="fas fa-bars navbar--icon" v-if="!isNavbar"></i>
-          <i class="fas fa-times navbar--icon" v-else></i>
-        </div>
-
-        <div class="logo">
-          <router-link to="/" tag="div" class="white">
-            <!-- <img src="https://ninomotor.com/images/logo/logo_1.png" alt="" /> -->
-            <h1>OMEGA</h1>
+    <nav class="navbar--mobile">
+      <div class="container">
+        <ul class="">
+          <router-link
+            v-for="item in mobileNavMenu"
+            :key="item.id"
+            :to="item.path"
+            tag="li"
+          >
+            <i :class="item.icon"></i> {{ item.name }}
           </router-link>
-        </div>
-
-        <router-link to="/cart" tag="div" class="white">
-          <i class="fas fa-shopping-cart"></i>
-        </router-link>
-      </div>
-
-      <nav class="navbar--mobile">
-        <ul>
-          <router-link to="/" tag="li"
+          <!-- <router-link to="/" tag="li"
+          
             ><i class="fas fa-home"></i> Home</router-link
           >
 
@@ -37,15 +28,39 @@
             <i class="fas fa-phone"></i> Contact
           </router-link>
 
-          <router-link to="/login" tag="li">
-            <i class="fas fa-user-alt"></i> Sign In
+          <router-link to="/profile" tag="li">
+            <i class="fas fa-user-alt"></i><span> Your Profile</span>
           </router-link>
+
+          <router-link to="/login" tag="li">
+            <i class="fas fa-user-alt"></i>
+
+            <span> Sign In</span>
+          </router-link> -->
         </ul>
-      </nav>
-    </section>
+      </div>
+    </nav>
+    <nav class="nav">
+      <div class="container d-flex nav--mobile">
+        <div class="mobile-icon" @click="navbarHandler">
+          <i class="fas fa-bars navbar--icon" v-if="!isNavbar"></i>
+          <i class="fas fa-times navbar--icon" v-else></i>
+        </div>
+
+        <div class="logo">
+          <router-link to="/" tag="div" class="white">
+            <h1>OMEGA</h1>
+          </router-link>
+        </div>
+
+        <router-link to="/cart" tag="div" class="white">
+          <i class="fas fa-shopping-cart"></i>
+        </router-link>
+      </div>
+    </nav>
 
     <section class="background-img" v-if="this.$route.path == '/'">
-      <div class="container">
+      <div class="">
         <picture>
           <source
             media="(min-width:650px)"
@@ -61,8 +76,6 @@
         </picture>
       </div>
     </section>
-
-    <div class="backdrop"></div>
   </header>
 </template>
 
@@ -74,7 +87,32 @@ export default {
     return {
       isNavbar: false,
       scrollPositionY: 0,
+      loggedIn: null,
     };
+  },
+
+  computed: {
+    mobileNavMenu() {
+      let mobileNavMenu = [
+        { path: "/", name: "Home", icon: "fas fa-home" },
+        { path: "/product", name: "Product", icon: "fab fa-product-hunt" },
+        { path: "/Contact", name: "Contact", icon: "fas fa-phone" },
+        { path: "/login", name: "Log in", icon: "fas fa-user-alt" },
+      ];
+      if (this.isAuth) {
+        mobileNavMenu = [
+          { path: "/", name: "Home", icon: "fas fa-home" },
+          { path: "/product", name: "Product", icon: "fab fa-product-hunt" },
+          { path: "/contact", name: "Contact", icon: "fas fa-phone" },
+          { path: "/profile", name: "Your Profile", icon: "fas fa-user-alt" },
+        ];
+      }
+      return mobileNavMenu;
+    },
+
+    isAuth() {
+      return this.$store.getters.getStatus;
+    },
   },
 
   watch: {
@@ -111,7 +149,7 @@ export default {
 
 <style scoped>
 .header {
-  height: 100vh;
+  height: 110vh;
 }
 
 .header-sm {
@@ -124,16 +162,16 @@ export default {
 }
 
 .background-img {
-  position: absolute;
-  top: 0;
-  z-index: -1;
+  position: relative;
+  top: 4rem;
+  /* z-index: -1; */
 }
 
 .background-img img {
   width: 100%;
-  height: 80vh;
+  height: 100vh;
   position: relative;
-  top: 6rem;
+  /* top: 6rem; */
   z-index: -2;
 }
 
@@ -182,14 +220,15 @@ export default {
 
 .navbar--mobile {
   position: fixed;
-  z-index: 10;
-  top: 64px;
-  left: -100%;
-  background: black;
-  color: grey;
+  z-index: 5;
+  top: -100vh;
+  /* top: 64px; */
+  /* left: -100%; */
+  background: #333333;
+  color: #fff;
   width: 100%;
   height: 100%;
-  transition: left 250ms linear;
+  transition: top 500ms ease-in-out;
   text-align: center;
 }
 
@@ -202,7 +241,6 @@ export default {
 
 .navbar--mobile ul li {
   margin-bottom: 2rem;
-  padding-left: 0.5rem;
   cursor: pointer;
 }
 
@@ -212,14 +250,21 @@ export default {
 }
 
 .navbar-show {
-  left: 0;
+  /* left: 0;
+   */
+  top: 64px;
 }
 
 .router-link-exact-active {
-  color: white;
+  color: #fff;
 }
 
 .bg-dark {
   background-color: #000;
+}
+
+ul,
+li {
+  padding: 0;
 }
 </style>

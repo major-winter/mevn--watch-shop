@@ -18,6 +18,10 @@ export default {
     AppHeader,
     AppFooter,
   },
+
+  created() {
+    this.$store.getters.isLoggedIn; //Check if the user has logged in
+  },
 };
 </script>
 
@@ -50,7 +54,7 @@ li {
 }
 
 .container {
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -62,6 +66,12 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.flex--col--between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .btn {

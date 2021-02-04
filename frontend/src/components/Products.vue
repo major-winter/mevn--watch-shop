@@ -59,4 +59,5 @@ export default {
   column-gap: auto;
   justify-content: space-between;
 }
+
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="cart">
-    <h1 class="mt-2">Your Cart</h1>
+  <div class="cart mt-2">
+    <h1>Your Cart</h1>
     <div class="container cart--container" v-if="products.length > 0">
       <div v-for="product in products" :key="product._id">
         <div class="product--img">

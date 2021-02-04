@@ -51,7 +51,9 @@ router.patch('/products/:id', async (req, res) => {
   }
 
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+    const product = await Product.findById(req.params.id)
+    updates.forEach(update => product[update] = req.body[update])
+    await product.save()
 
     if (!product) {
       return res.status(404).send({ error: 'Product not found!' })

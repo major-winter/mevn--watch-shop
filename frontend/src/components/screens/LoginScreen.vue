@@ -18,6 +18,8 @@
 import AppForm from "../ui/AppForm";
 import mButton from "../ui/Button";
 import mixins from "../../mixins/getQtyMixins";
+import { USER_LOGIN } from "../../constants/authConstants";
+// import axios from "axios";
 
 export default {
   name: "LoginScreen",
@@ -38,6 +40,7 @@ export default {
         email: "",
         password: "",
       },
+      store: null,
     };
   },
 
@@ -46,9 +49,19 @@ export default {
     mButton,
   },
 
+  created() {
+    this.store = this.$store;
+  },
+
   methods: {
     loginHandler() {
-      console.log(this.loginForm);
+      const requestBody = {
+        email: "chen@chen.com",
+        password: "123456",
+      };
+      this.store.dispatch(USER_LOGIN, requestBody);
+
+      this.$router.push("/");
     },
   },
 };

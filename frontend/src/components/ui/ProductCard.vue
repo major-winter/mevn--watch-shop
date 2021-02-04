@@ -11,7 +11,9 @@
             <h4>{{ product.name || "Product Name" }}</h4>
           </div>
           <div class="product-description">
-            <p class="product-price">Price: ${{ product.price || "Product Price" }}</p>
+            <p class="product-price">
+              Price: ${{ product.price || "Product Price" }}
+            </p>
           </div>
         </div>
       </section>
@@ -42,15 +44,16 @@ export default {
 }
 
 .product--card {
-  /* border: 1px solid rgba(255, 255, 255, 0.4); */
   border-radius: 0.1rem;
+  position: relative;
   max-height: 100%;
   height: auto;
   display: grid;
   grid-template-rows: 1fr auto;
   margin-top: 1rem;
-
-  /* box-shadow: -0.5rem 0.5rem 0.15rem rgba(65, 64, 64, 0.1); */
+  animation-name: fadeIn;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
 }
 
 .product--img {
@@ -83,5 +86,14 @@ export default {
 a {
   text-decoration: none;
   color: black;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
