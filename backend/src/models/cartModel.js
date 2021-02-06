@@ -8,9 +8,22 @@ const cartSchema = new mongoose.Schema({
   },
   cartItems: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'Product'
+      productName: {
+        type: String,
+        default: ''
+      },
+      purchaseQty: {
+        type: Number,
+        default: 1
+      },
+      image: {
+        type: String
+      },
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Product'
+      }
     }
   ]
 }, { timestamps: true })

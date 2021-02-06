@@ -1,11 +1,17 @@
 <template>
   <div class="profile mt-2">
     <div class="container">
-      <h1>Hello {{ userName }}</h1>
+      <h1>Hello {{ user.username }}</h1>
       <ul>
         <li>
           <p>Email:</p>
-          <p>chen@chen.com</p>
+          <p>{{ user.email }}</p>
+        </li>
+
+        <li>
+          <m-button @clicked="signOutHandler">
+            <i class="fas fa-sign-out-alt"></i> Sign Out
+          </m-button>
         </li>
       </ul>
     </div>
@@ -13,12 +19,17 @@
 </template>
 
 <script>
+import mButton from "@/components/ui/Button";
 export default {
   name: "ProfileScreen",
   data() {
     return {
-      userName: "",
+      user: {},
     };
+  },
+
+  components: {
+    mButton,
   },
 
   created() {
@@ -27,9 +38,13 @@ export default {
 
   methods: {
     getUserName() {
-      JSON.parse(localStorage.getItem("user"))
-        ? (this.userName = JSON.parse(localStorage.getItem("user")))
-        : (this.userName = "");
+      JSON.parse(localStorage.getItem("user")) &&
+        (this.user = JSON.parse(localStorage.getItem("user")));
+    },
+
+    signOutHandler() {
+      this.$store.dispatch("USER_LOGOUT");
+      this.$router.push("/");
     },
   },
 };

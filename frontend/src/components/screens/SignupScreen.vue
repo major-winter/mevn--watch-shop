@@ -14,7 +14,6 @@
 <script>
 import AppForm from "../ui/AppForm";
 import mButton from "../ui/Button";
-import axios from "axios";
 import mixins from "../../mixins/getQtyMixins";
 
 export default {
@@ -50,15 +49,8 @@ export default {
   methods: {
     async signupHandler() {
       const body = this.signupForm;
-      try {
-        const { data } = await axios.post("/users", body);
-
-        if (data) {
-          this.$router.push("/");
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
+      this.$store.dispatch("SIGN_UP", body);
+      this.$router.push("/");
     },
   },
 };

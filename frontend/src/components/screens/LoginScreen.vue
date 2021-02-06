@@ -54,14 +54,24 @@ export default {
   },
 
   methods: {
-    loginHandler() {
+    async loginHandler() {
+      console.log("clikce");
+      if (this.loginForm.email === "" || this.loginForm.password === "") {
+        return alert("Fill in stupid head");
+      }
       const requestBody = {
-        email: "chen@chen.com",
-        password: "123456",
+        email: this.loginForm.email,
+        password: this.loginForm.password,
       };
-      this.store.dispatch(USER_LOGIN, requestBody);
 
-      this.$router.push("/");
+      await this.store.dispatch(USER_LOGIN, requestBody);
+
+      const redirectTo = window.location.search.split("=")[1];
+      if (this.store.getters.getStatus && redirectTo) {
+        this.$router.push({ path: redirectTo });
+      } else {
+        this.$router.push({ path: "/" });
+      }
     },
   },
 };

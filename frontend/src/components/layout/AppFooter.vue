@@ -99,9 +99,6 @@ export default {
 
 .btn span {
   display: inline-block;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
   text-transform: uppercase;
 }
 

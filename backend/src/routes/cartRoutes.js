@@ -16,15 +16,30 @@ router.get('/cart', auth, (req, res) => {
 // @Description Add items to cart
 // @Access Private
 router.post('/cart', auth, async (req, res) => {
-  const product = await Product.findById(req.body._id)
-
-  const cart = new Cart({
-    cartItems: [product],
-    owner: req.user._id
-  })
-
-  res.send(cart)
-  console.log(product)
+  try {
+    const { cartItems } = req.body
+    const cart = new Cart({
+      cartItems,
+      owner: req.user._id
+    })
+    cart.save()
+    res.send(cart)
+  } catch (error) {
+    res.status(400).send('No product to be added')
+  }
 })
+
+// POST /cart
+// @Description Update cart
+// @Access Private
+router.patch('/cart/:id', auth, async (req, res) => {
+  try {
+    console.log(req.body)
+  } catch (error) {
+
+  }
+})
+
+
 
 module.exports = router

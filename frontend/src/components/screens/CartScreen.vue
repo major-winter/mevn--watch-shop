@@ -13,7 +13,7 @@
         </div>
         <select-box
           @selected="selectHandler"
-          :value="product.qty"
+          :value="+product.qty"
           :select-name="product.name"
           :product-id="product._id"
           :init-value="product.purchaseQty"
@@ -48,20 +48,25 @@ export default {
   data() {
     return {
       products: [],
-      cart: {},
-      trigger: false,
-      initCart: {},
+      cartItems: {},
     };
   },
 
   computed: {
-    // totalPrice() {
-    //   this.trigger;
-    //   const priceObjArr = Object.values(this.cart);
-    //   return priceObjArr.reduce((acc, cur) => {
-    //     return acc + cur.price;
-    //   }, 0);
-    // },
+    totalPrice() {
+      let totalPrice = 0;
+      let products = this.getCartItems;
+
+      products.forEach((product) => {
+        totalPrice += product.price * product.purchaseQty;
+      });
+
+      return totalPrice;
+    },
+
+    getCartItems() {
+      return this.$store.getters.getCart;
+    },
   },
 
   components: {
@@ -69,20 +74,8 @@ export default {
     mButton,
   },
 
-  created() {
-    this.getInitCart();
-  },
-
   mounted() {
-    JSON.parse(localStorage.getItem("cart")) &&
-      (this.products = JSON.parse(localStorage.getItem("cart")));
-
-    // this.products.forEach((product) => {
-    //   this.cart[product._id] = {
-    //     ...this.cart[product._id],
-    //     price: product.price,
-    //   };
-    // });
+    this.products = this.getCartItems;
   },
 
   methods: {
@@ -90,17 +83,10 @@ export default {
       this.$router.push("/");
     },
 
-    selectHandler({ id, value }) {
-      this.trigger = !this.trigger;
-      const product = this.products.find((product) => product._id === id);
-      let price = product.price * value;
-      this.cart[id] = { ...this.cart[id], price, qty: +value };
-      // localStorage.setItem("cart", JSON.stringify(this.cart));
-    },
-
-    getInitCart() {
-      // const initCart = JSON.parse(localStorage.getItem("cart"));
-      // this.initCart = { ...initCart };
+    selectHandler({ id, purchaseQty }) {
+      const targetProduct = this.products.find((product) => product._id === id);
+      const product = { ...targetProduct, purchaseQty: +purchaseQty };
+      this.$store.dispatch("UPDATE_CART", product);
     },
   },
 };

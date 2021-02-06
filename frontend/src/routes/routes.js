@@ -42,7 +42,10 @@ const router = new VueRouter({
     {
       path: '/profile',
       name: 'profileScreen',
-      component: ProfileScreen
+      component: ProfileScreen,
+      meta: {
+        isAuth: false
+      }
     },
 
     {
@@ -54,11 +57,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-
-  if (to.name === 'cartScreen') {
+  if (to.name === 'cartScreen' || to.name === 'profileScreen') {
     const token = JSON.parse(localStorage.getItem('token'))
     if (!token) {
-      next({ name: 'loginScreen' })
+      next({ name: 'loginScreen', query: { redirect: 'cart' } })
     } else {
 
       next()

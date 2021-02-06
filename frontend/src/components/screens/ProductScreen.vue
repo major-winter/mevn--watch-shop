@@ -18,6 +18,7 @@
                 class="btn btn__cart"
                 v-on:clicked="addToCartHandler"
                 v-if="product.qty > 0"
+                :disabled="isAdded"
               >
                 <span v-if="!isAdded">Add to Cart</span>
                 <span v-else>Added</span>
@@ -58,6 +59,7 @@ export default {
 
   created() {
     this.getProduct();
+    // this.addToCartHandler();
   },
 
   mounted() {
@@ -67,25 +69,23 @@ export default {
   methods: {
     async getProduct() {
       const { data } = await axios.get(`/products/${this.$route.params.id}`);
-      this.product = { ...data, purchaseQty: 1 };
+      this.product = {
+        ...data,
+        purchaseQty: 1,
+      };
     },
 
     addToCartHandler() {
-      let cart = JSON.parse(localStorage.getItem("cart"));
-      if (!cart) {
-        cart = [];
-        cart.push(this.product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-      } else {
-        const existedProduct = cart.find(
-          (product) => product._id === this.product._id
-        );
-        if (!existedProduct) {
-          cart.push(this.product);
-          localStorage.setItem("cart", JSON.stringify(cart));
-        }
-      }
-
+      let cartProduct = {
+        purchaseQty: 1,
+        productName: this.product.name,
+        productId: this.product._id,
+        image: this.product.image,
+      };
+      this.$store.dispatch("ADD_TO_CART", {
+        cartProduct,
+        product: this.product,
+      });
       this.isAdded = true;
     },
 

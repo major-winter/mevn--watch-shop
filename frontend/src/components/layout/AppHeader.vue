@@ -15,28 +15,6 @@
           >
             <i :class="item.icon"></i> {{ item.name }}
           </router-link>
-          <!-- <router-link to="/" tag="li"
-          
-            ><i class="fas fa-home"></i> Home</router-link
-          >
-
-          <router-link to="/products" tag="li"
-            ><i class="fab fa-product-hunt"></i> Products</router-link
-          >
-
-          <router-link to="/contact" tag="li">
-            <i class="fas fa-phone"></i> Contact
-          </router-link>
-
-          <router-link to="/profile" tag="li">
-            <i class="fas fa-user-alt"></i><span> Your Profile</span>
-          </router-link>
-
-          <router-link to="/login" tag="li">
-            <i class="fas fa-user-alt"></i>
-
-            <span> Sign In</span>
-          </router-link> -->
         </ul>
       </div>
     </nav>
@@ -59,7 +37,7 @@
       </div>
     </nav>
 
-    <section class="background-img" v-if="this.$route.path == '/'">
+    <!-- <section class="background-img" v-if="this.$route.path == '/'">
       <div class="">
         <picture>
           <source
@@ -75,7 +53,7 @@
           />
         </picture>
       </div>
-    </section>
+    </section> -->
   </header>
 </template>
 
@@ -149,7 +127,7 @@ export default {
 
 <style scoped>
 .header {
-  height: 110vh;
+  height: 10vh;
 }
 
 .header-sm {

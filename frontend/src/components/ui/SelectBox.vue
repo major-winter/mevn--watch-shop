@@ -55,7 +55,7 @@ export default {
 
   methods: {
     valueHandler(e) {
-      this.$emit("selected", { value: e.target.value, id: e.target.id });
+      this.$emit("selected", { purchaseQty: e.target.value, id: e.target.id });
     },
   },
 };
@@ -73,5 +73,10 @@ export default {
 
 .select {
   width: 3rem;
+  border: 1px solid #e0e0e0;
+}
+
+.select option {
+  border: 1px solid #e0e0e0;
 }
 </style>
