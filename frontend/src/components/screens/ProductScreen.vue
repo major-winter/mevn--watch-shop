@@ -69,7 +69,7 @@ export default {
 
   methods: {
     async getProduct() {
-      const { data } = await axios.get(`/products/${this.$route.params.id}`);
+      const { data } = await axios.get(`/api/products/${this.$route.params.id}`);
       this.product = {
         ...data,
         purchaseQty: 1,
