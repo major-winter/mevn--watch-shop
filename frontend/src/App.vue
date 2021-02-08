@@ -2,7 +2,9 @@
   <div id="app">
     <app-header></app-header>
     <main>
-      <router-view></router-view>
+      <transition name="fade">
+        <router-view></router-view>
+      </transition>
     </main>
     <app-footer></app-footer>
   </div>
@@ -85,5 +87,21 @@ img {
 
 .bg-dark {
   background-color: pink;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateX(-2rem);
+}
+
+.fade-enter-to,
+.fade-leave {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 300ms ease-in;
 }
 </style>

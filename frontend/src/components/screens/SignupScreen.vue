@@ -50,7 +50,7 @@ export default {
     async signupHandler() {
       const body = this.signupForm;
       this.$store.dispatch("SIGN_UP", body);
-      this.$router.push("/");
+      this.$router.push({ path: "/" });
     },
   },
 };

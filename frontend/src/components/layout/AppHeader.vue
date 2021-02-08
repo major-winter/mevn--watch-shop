@@ -13,7 +13,10 @@
             :to="item.path"
             tag="li"
           >
-            <i :class="item.icon"></i> {{ item.name }}
+            <span @click="navbarHandler">
+              <i :class="item.icon"></i>
+              {{ item.name }}
+            </span>
           </router-link>
         </ul>
       </div>
@@ -31,29 +34,18 @@
           </router-link>
         </div>
 
+        <div v-if="isAuth">
+          <router-link to="/profile" tag="div" class="white">
+            Hello,
+            {{ userName }}
+          </router-link>
+        </div>
+
         <router-link to="/cart" tag="div" class="white">
           <i class="fas fa-shopping-cart"></i>
         </router-link>
       </div>
     </nav>
-
-    <!-- <section class="background-img" v-if="this.$route.path == '/'">
-      <div class="">
-        <picture>
-          <source
-            media="(min-width:650px)"
-            srcset="
-              https://cdn-static.farfetch-contents.com/cms-cm/tw/media/1799254/data/defe2f57554b1bae9715e38751860caa.jpg?ratio=16x9_under&minWidth=1142
-            "
-          />
-          <img
-            src="https://cdn-static.farfetch-contents.com/cms-cm/tw/media/1799254/data/defe2f57554b1bae9715e38751860caa.jpg?ratio=3x4_under&minWidth=552"
-            alt="panigale"
-            srcset=""
-          />
-        </picture>
-      </div>
-    </section> -->
   </header>
 </template>
 
@@ -66,6 +58,7 @@ export default {
       isNavbar: false,
       scrollPositionY: 0,
       loggedIn: null,
+      userName: "",
     };
   },
 
@@ -73,14 +66,12 @@ export default {
     mobileNavMenu() {
       let mobileNavMenu = [
         { path: "/", name: "Home", icon: "fas fa-home" },
-        { path: "/product", name: "Product", icon: "fab fa-product-hunt" },
         { path: "/Contact", name: "Contact", icon: "fas fa-phone" },
         { path: "/login", name: "Log in", icon: "fas fa-user-alt" },
       ];
       if (this.isAuth) {
         mobileNavMenu = [
           { path: "/", name: "Home", icon: "fas fa-home" },
-          { path: "/product", name: "Product", icon: "fab fa-product-hunt" },
           { path: "/contact", name: "Contact", icon: "fas fa-phone" },
           { path: "/profile", name: "Your Profile", icon: "fas fa-user-alt" },
         ];
@@ -94,15 +85,10 @@ export default {
   },
 
   watch: {
-    $route(to) {
-      let header = document.querySelector(".header");
+    $route() {
+      this.userName = this.$store.getters.getUserName;
       if (this.isNavbar === true) {
         this.navbarHandler();
-      }
-      if (to.path !== "/") {
-        header.classList.add("header-sm");
-      } else if (this.$route.path == "/") {
-        header.classList.remove("header-sm");
       }
     },
   },
@@ -118,6 +104,10 @@ export default {
         ? (this.isNavbar = true)
         : (this.isNavbar = false);
     },
+
+    test() {
+      console.log("testing");
+    },
   },
 };
 </script>
@@ -128,10 +118,6 @@ export default {
 <style scoped>
 .header {
   height: 10vh;
-}
-
-.header-sm {
-  height: 5vh;
 }
 
 .logo img {

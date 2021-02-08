@@ -8,16 +8,24 @@ const cartSchema = new mongoose.Schema({
   },
   cartItems: [
     {
-      productName: {
+      name: {
         type: String,
+        required: true,
         default: ''
       },
+      price: { type: Number, },
+
       purchaseQty: {
         type: Number,
+        required: true,
         default: 1
       },
+      countInStock: {
+        type: Number,
+      },
       image: {
-        type: String
+        type: String,
+        required: true
       },
       productId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -27,6 +35,15 @@ const cartSchema = new mongoose.Schema({
     }
   ]
 }, { timestamps: true })
+
+
+cartSchema.methods.udpateProductInCard = async function (productId, payload) {
+  this.cartItems.forEach(item => {
+    if (item._id == productId) {
+      item.purchaseQty = payload
+    }
+  })
+}
 
 const Cart = mongoose.model('Cart', cartSchema)
 module.exports = Cart

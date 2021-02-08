@@ -2,7 +2,8 @@ import axios from 'axios'
 
 const state = () => ({
   status: '',
-  token: localStorage.getItem('token') || '',
+  userName: JSON.parse(localStorage.getItem('user')) || '',
+  token: JSON.parse(localStorage.getItem('token')) || '',
 })
 
 const getters = {
@@ -17,16 +18,23 @@ const getters = {
 
   getStatus (state) {
     return state.status
+  },
+
+  getUserName (state) {
+    return state.userName.username
   }
 }
 const mutations = {
 
-  SIGN_UP (state) {
+  SIGN_UP (state, payload) {
     state.status = 'authenticated'
+    state.userName = payload.username
   },
 
-  SET_USER (state) {
+  SET_USER (state, payload) {
+    console.log('set user', payload)
     state.status = 'authenticated'
+    state.userName = payload.username
   },
 
   REMOVE_TOKEN (state) {
@@ -39,10 +47,9 @@ const actions = {
     try {
       const { data } = await axios.post("/users", payload)
       const { token, user } = data
-      console.log(data)
       localStorage.setItem("token", JSON.stringify(token))
       localStorage.setItem("user", JSON.stringify(user))
-      commit('SIGN_UP')
+      commit('SIGN_UP', user)
     } catch (error) {
       console.log(error.message)
     }
@@ -53,24 +60,26 @@ const actions = {
     try {
       const { data } = await axios.post("/users/login", requestBody)
       const { token, user } = data
-      localStorage.setItem("token", JSON.stringify(token))
-      localStorage.setItem("user", JSON.stringify(user))
-      commit('SET_USER')
+      await localStorage.setItem("token", JSON.stringify(token))
+      await localStorage.setItem("user", JSON.stringify(user))
+      commit('SET_USER', user)
     } catch (error) {
       const { data } = error.response
-      console.log(data.message);
-      
+      console.log(data.message)
     }
   },
 
   async USER_LOGOUT ({ commit }) {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    localStorage.removeItem('cart')
+    localStorage.removeItem('cartId')
     commit('REMOVE_TOKEN')
   }
 }
 
 export default {
+  namespace: true,
   state,
   getters,
   mutations,

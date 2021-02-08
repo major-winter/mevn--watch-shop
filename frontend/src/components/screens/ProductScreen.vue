@@ -3,7 +3,7 @@
     <div class="product--screen__container">
       <div class="product--screen__details">
         <div class="product--screen__details--img">
-          <img :src="product.image" alt="" />
+          <img :src="product.image" :alt="product.name" />
         </div>
         <div class="product--screen__details--description">
           <div class="container">
@@ -18,10 +18,11 @@
                 class="btn btn__cart"
                 v-on:clicked="addToCartHandler"
                 v-if="product.qty > 0"
-                :disabled="isAdded"
               >
                 <span v-if="!isAdded">Add to Cart</span>
-                <span v-else>Added</span>
+                <span v-else>
+                  <router-link to="/cart">View Cart</router-link>
+                </span>
               </m-button>
 
               <m-button
@@ -72,6 +73,7 @@ export default {
       this.product = {
         ...data,
         purchaseQty: 1,
+        productId: data._id,
       };
     },
 
@@ -81,6 +83,7 @@ export default {
         productName: this.product.name,
         productId: this.product._id,
         image: this.product.image,
+        countInStock: this.product.qty,
       };
       this.$store.dispatch("ADD_TO_CART", {
         cartProduct,
@@ -123,6 +126,10 @@ export default {
   margin: 0 auto;
   text-align: center;
   height: 100%;
+}
+
+.product--screen__details--img img {
+  width: 80%;
 }
 
 .product--description {

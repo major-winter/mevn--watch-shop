@@ -55,7 +55,6 @@ export default {
 
   methods: {
     async loginHandler() {
-      console.log("clikce");
       if (this.loginForm.email === "" || this.loginForm.password === "") {
         return alert("Fill in stupid head");
       }
@@ -65,6 +64,7 @@ export default {
       };
 
       await this.store.dispatch(USER_LOGIN, requestBody);
+      await this.store.dispatch("GET_CART_ITEMS");
 
       const redirectTo = window.location.search.split("=")[1];
       if (this.store.getters.getStatus && redirectTo) {

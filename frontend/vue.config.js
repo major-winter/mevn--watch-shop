@@ -1,5 +1,6 @@
 const path = require('path')
 module.exports = {
+  outputDir: path.resolve(__dirname, '../backend/public'),
   devServer: {
     proxy: "http://localhost:5100"
   },
@@ -9,15 +10,11 @@ module.exports = {
         "@": path.resolve(__dirname, "src/")
       }
     }
+  },
+  chainWebpack: config => {
+    config.plugin('html').tap(args => {
+      args[0].title = 'Watch Boutique'
+      return args
+    })
   }
-  // chainWebpack: config => {
-  //   config.module
-  //     .rule('vue')
-  //     .use('vue-loader')
-  //     .loader('vue-loader')
-  //     .tap(options => merge(options, { transformAssetUrls: { 'img': 'src/assets' } }))
-
-  // }
-
-
 }

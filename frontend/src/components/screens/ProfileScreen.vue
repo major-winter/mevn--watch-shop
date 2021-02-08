@@ -1,5 +1,5 @@
 <template>
-  <div class="profile mt-2">
+  <div class="profile mt-1 page">
     <div class="container">
       <h1>Hello {{ user.username }}</h1>
       <ul>
