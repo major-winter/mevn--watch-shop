@@ -10,6 +10,10 @@ const app = express()
 
 app.use(express.json()) // Parse incoming request body to JSON
 
+app.get('/', (req, res) => {
+  res.send('Hello')
+})
+
 app.use(productRoutes)
 app.use(userRoutes)
 app.use(cartRoutes)
