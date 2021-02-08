@@ -8,7 +8,7 @@ const User = require('../models/userModel')
 // POST /cart
 // @Description Create new cart
 // @Access Private
-router.post('/cart', auth, async (req, res) => {
+router.post('/api/cart', auth, async (req, res) => {
   try {
     const { cartItems } = req.body
     const cart = new Cart({
@@ -26,7 +26,7 @@ router.post('/cart', auth, async (req, res) => {
 // GET /cart
 // @Description Get all cart items
 // @Access Private
-router.get('/cart', auth, async (req, res) => {
+router.get('/api/cart', auth, async (req, res) => {
   try {
     const cart = await Cart.findOne({ owner: req.user._id })
     if (cart === null) {
@@ -39,10 +39,10 @@ router.get('/cart', auth, async (req, res) => {
   }
 })
 
-// POST /cart/:id
+// POST /api/cart/:id
 // @Description Add items to cart
 // @Access Private
-router.post('/cart/:id', auth, async (req, res) => {
+router.post('/api/cart/:id', auth, async (req, res) => {
   try {
     const existedCart = await Cart.findById(req.params.id)
 
@@ -61,7 +61,7 @@ router.post('/cart/:id', auth, async (req, res) => {
 // POST /cart/:id
 // @Description Update cart
 // @Access Private
-router.patch('/cart/:id', auth, async (req, res) => {
+router.patch('/api/cart/:id', auth, async (req, res) => {
   try {
     const { productId, purQty } = req.query
     const existedCart = await Cart.findById(req.params.id)

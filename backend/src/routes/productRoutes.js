@@ -3,7 +3,7 @@ const router = express.Router()
 const Product = require('../models/productModel')
 
 // POST Create New Product
-router.post('/products', (req, res) => {
+router.post('/api/products', (req, res) => {
   const product = new Product(req.body)
 
   product.save().then(() => {
@@ -14,7 +14,7 @@ router.post('/products', (req, res) => {
 })
 
 // GET get all products
-router.get('/products', async (req, res) => {
+router.get('/api/products', async (req, res) => {
   try {
     const products = await Product.find({})
     res.send(products)
@@ -25,7 +25,7 @@ router.get('/products', async (req, res) => {
 
 
 // GET get 1 product by Id
-router.get('/products/:id', async (req, res) => {
+router.get('/api/products/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
     if (!product) {
@@ -41,7 +41,7 @@ router.get('/products/:id', async (req, res) => {
 })
 
 // PATCH Update product 
-router.patch('/products/:id', async (req, res) => {
+router.patch('/api/products/:id', async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ['image', 'price', 'name', 'qty']
   const isValidUpdate = updates.every(update => allowedUpdates.includes(update))
