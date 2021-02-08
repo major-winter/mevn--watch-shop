@@ -30,7 +30,7 @@ const mutations = {
 const actions = {
   async GET_CART_ITEMS ({ commit }) {
     const token = await JSON.parse(localStorage.getItem('token'))
-    const { data } = await axios.get('/cart', {
+    const { data } = await axios.get('/api/cart', {
       headers: {
         'Authorization': `Bearer ${token} `
       }
@@ -56,7 +56,7 @@ const actions = {
     localStorage.setItem("cart", JSON.stringify(cart))
 
     if (cartId) {
-      const { data } = await axios.post(`/cart/${cartId}`, { cartItems: cart }, {
+      const { data } = await axios.post(`/api/cart/${cartId}`, { cartItems: cart }, {
         headers: {
           'Authorization': `Bearer ${token} `
         }
@@ -64,7 +64,7 @@ const actions = {
       commit('SET_CART', { cart, cartId: data._id })
     }
     if (!cartId) {
-      const { data } = await axios.post(`/cart`, { cartItems: cart }, {
+      const { data } = await axios.post(`/api/cart`, { cartItems: cart }, {
         headers: {
           'Authorization': `Bearer ${token} `
         }
@@ -88,7 +88,7 @@ const actions = {
 
     localStorage.setItem('cart', JSON.stringify(cart))
 
-    await axios.patch(`/cart/${cartId}?productId=${payload._id}&purQty=${payload.purchaseQty}`, { cartItems: cart, cartId: state.cartId }, {
+    await axios.patch(`/api/cart/${cartId}?productId=${payload._id}&purQty=${payload.purchaseQty}`, { cartItems: cart, cartId: state.cartId }, {
       headers: {
         'Authorization': `Bearer ${token} `
       }

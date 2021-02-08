@@ -45,7 +45,7 @@ const mutations = {
 const actions = {
   async SIGN_UP ({ commit }, payload) {
     try {
-      const { data } = await axios.post("/users", payload)
+      const { data } = await axios.post("/api/users", payload)
       const { token, user } = data
       localStorage.setItem("token", JSON.stringify(token))
       localStorage.setItem("user", JSON.stringify(user))
@@ -58,7 +58,7 @@ const actions = {
 
   async USER_LOGIN ({ commit }, requestBody) {
     try {
-      const { data } = await axios.post("/users/login", requestBody)
+      const { data } = await axios.post("/api/users/login", requestBody)
       const { token, user } = data
       await localStorage.setItem("token", JSON.stringify(token))
       await localStorage.setItem("user", JSON.stringify(user))

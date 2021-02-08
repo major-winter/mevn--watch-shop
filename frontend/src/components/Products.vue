@@ -35,7 +35,7 @@ export default {
 
   methods: {
     async getProduct() {
-      const { data } = await axios.get("/products");
+      const { data } = await axios.get("/api/products");
       console.log(data);
       this.products = data;
     },
