@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const productRoutes = require('./routes/productRoutes')
 const userRoutes = require('./routes/userRoutes')
 const cartRoutes = require('./routes/cartRoutes')
+const path = require('path')
 require('./db/mongoose')
 
 dotenv.config()
@@ -15,14 +16,13 @@ app.use(productRoutes)
 app.use(userRoutes)
 app.use(cartRoutes)
 
-// Handle production
-if (process.env.NODE_ENV === 'production') {
-  // static folder
-  app.use(express.static(__dirname + '/public'))
 
-  // Handle SPA
-  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))
-}
+// static folder
+app.use(express.static(path.join(__dirname, '/public')))
+
+// Handle SPA
+app.get(/.*/, (req, res) => res.sendFile(path.join((__dirname + '/public/index.html')))
+
 
 const port = process.env.PORT || 5005
 
