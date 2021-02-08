@@ -11,7 +11,7 @@ router.get('/users/me', auth, async (req, res) => {
 // POST create new user
 // @endpoint /users
 // @access Public
-router.post('/users', async (req, res) => {
+router.post('/api/users', async (req, res) => {
   const user = new User(
     req.body
   )
