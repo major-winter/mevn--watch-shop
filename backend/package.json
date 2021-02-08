@@ -5,7 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"server": "nodemon src/server.js",
-		"start": "node src/server.js"
+		"start": "node backend/src/server.js"
 	},
 	"author": "Jason",
 	"license": "MIT",
