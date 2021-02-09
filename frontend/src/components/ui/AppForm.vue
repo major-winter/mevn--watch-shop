@@ -10,7 +10,7 @@
           <input
             :type="input.type ? input.type : 'text'"
             :name="input.label.toLowerCase()"
-            class="mb-1"
+            class="mb-1 form--data__input"
             @input="$emit('input', $event.target)"
             :placeholder="input.placeholder"
             @keydown.enter="$emit('enter')"
@@ -58,6 +58,7 @@ export default {
   height: 2rem;
   border: 1px solid #e0e0e0;
   padding-left: 0.2rem;
+  font-size: 1rem;
 }
 
 .form--btn {

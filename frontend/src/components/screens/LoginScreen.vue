@@ -2,7 +2,7 @@
   <div class="login mt-2">
     <app-form :form-data="formData" @input="inputHandler($event, 'loginForm')">
       <m-button class="mt-1 form--btn" @clicked="loginHandler">LOGIN</m-button>
-      <div class="signup--link">
+      <div class="signup--link mt-1">
         <p>
           Not a member?
           <router-link to="/signup" tag="p" class="link"
