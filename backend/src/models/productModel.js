@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Product = mongoose.model('Product', {
+const productSchema = mongoose.Schema({
   name: {
     type: String,
     trim: true,
@@ -26,4 +26,10 @@ const Product = mongoose.model('Product', {
   }
 })
 
+productSchema.statics.findByName = async function (search) {
+  const searchingProduct = await Product.find({ name: { $regex: search, $options: '$i' } })
+  return searchingProduct
+}
+
+const Product = mongoose.model('Product', productSchema)
 module.exports = Product

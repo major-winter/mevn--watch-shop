@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const state = () => ({
   status: '',
-  userName: JSON.parse(localStorage.getItem('user')) || '',
+  userName: JSON.parse(localStorage.getItem('userName')) || '',
   token: JSON.parse(localStorage.getItem('token')) || '',
 })
 
@@ -21,7 +21,7 @@ const getters = {
   },
 
   getUserName (state) {
-    return state.userName.username
+    return state.userName
   }
 }
 const mutations = {
@@ -32,7 +32,6 @@ const mutations = {
   },
 
   SET_USER (state, payload) {
-    console.log('set user', payload)
     state.status = 'authenticated'
     state.userName = payload.username
   },
@@ -47,8 +46,10 @@ const actions = {
     try {
       const { data } = await axios.post("/api/users", payload)
       const { token, user } = data
+      const userName = user.username
       localStorage.setItem("token", JSON.stringify(token))
       localStorage.setItem("user", JSON.stringify(user))
+      await localStorage.setItem("userName", JSON.stringify(userName))
       commit('SIGN_UP', user)
     } catch (error) {
       console.log(error.message)
@@ -60,8 +61,10 @@ const actions = {
     try {
       const { data } = await axios.post("/api/users/login", requestBody)
       const { token, user } = data
+      const userName = user.username
       await localStorage.setItem("token", JSON.stringify(token))
       await localStorage.setItem("user", JSON.stringify(user))
+      await localStorage.setItem("userName", JSON.stringify(userName))
       commit('SET_USER', user)
     } catch (error) {
       const { data } = error.response

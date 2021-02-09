@@ -13,9 +13,17 @@ router.post('/api/products', (req, res) => {
   })
 })
 
-// GET get all products
+// GET get all products or get products by name
+// /api/products?search=name
 router.get('/api/products', async (req, res) => {
   try {
+    const { search } = req.query
+
+    if (search) {
+      const product = await Product.findByName(search)
+      res.send(product)
+    }
+
     const products = await Product.find({})
     res.send(products)
   } catch (error) {

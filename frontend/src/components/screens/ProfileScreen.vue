@@ -1,15 +1,15 @@
 <template>
   <div class="profile mt-1 page">
-    <div class="container">
+    <div class="container text--center">
       <h1>Hello {{ user.username }}</h1>
-      <ul>
+      <ul class="profile__list-items">
         <li>
-          <p>Email:</p>
-          <p>{{ user.email }}</p>
+          <span>Email: </span>
+          <span>{{ user.email }}</span>
         </li>
 
         <li>
-          <m-button @clicked="signOutHandler">
+          <m-button @clicked="signOutHandler" class="mt-1">
             <i class="fas fa-sign-out-alt"></i> Sign Out
           </m-button>
         </li>
@@ -53,5 +53,9 @@ export default {
 <style scoped>
 .profile {
   top: 64px;
+}
+
+.profile__list-items {
+  list-style: none;
 }
 </style>

@@ -58,7 +58,6 @@ export default {
       isNavbar: false,
       scrollPositionY: 0,
       loggedIn: null,
-      userName: "",
     };
   },
 
@@ -82,11 +81,15 @@ export default {
     isAuth() {
       return this.$store.getters.getStatus;
     },
+
+    userName() {
+      console.log('username')
+      return this.$store.getters.getUserName
+    }
   },
 
   watch: {
     $route() {
-      this.userName = this.$store.getters.getUserName;
       if (this.isNavbar === true) {
         this.navbarHandler();
       }
