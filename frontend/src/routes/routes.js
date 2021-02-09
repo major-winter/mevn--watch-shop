@@ -1,11 +1,12 @@
 import VueRouter from 'vue-router'
-const HomeScreen = () => import('../components/Products')
-const ProductScreen = () => import('../components/screens/ProductScreen')
-const CartScreen = () => import('../components/screens/CartScreen')
-const LoginScreen = () => import('../components/screens/LoginScreen')
-const SignupScreen = () => import('../components/screens/SignupScreen')
-const NotFoundScreen = () => import('../components/screens/NotFound')
-const ProfileScreen = () => import('../components/screens/ProfileScreen')
+const HomeScreen = () => import(/* webpackChunkName: "HomeScreen" */ '../components/Products')
+const ProductScreen = () => import(/* webpackChunkName: "ProductScreen" */ '../components/screens/ProductScreen')
+const CartScreen = () => import(/* webpackChunkName: "CartScreen" */ '../components/screens/CartScreen')
+const LoginScreen = () => import(/* webpackChunkName: "LoginScreen" */ '../components/screens/LoginScreen')
+const SignupScreen = () => import(/* webpackChunkName: "SignupScreen" */ '../components/screens/SignupScreen')
+const NotFoundScreen = () => import(/* webpackChunkName: "NotFoundScreen" */ '../components/screens/NotFound')
+const ProfileScreen = () => import(/* webpackChunkName: "ProfileScreen" */ '../components/screens/ProfileScreen')
+const ContactScreen = () => import(/* webpackChunkName: "ProfileScreen" */ '../components/screens/ContactScreen')
 
 const router = new VueRouter({
   mode: "history",
@@ -46,6 +47,12 @@ const router = new VueRouter({
       meta: {
         isAuth: false
       }
+    },
+
+    {
+      path: '/contact',
+      name: 'contactScreen',
+      component: ContactScreen,
     },
 
     {

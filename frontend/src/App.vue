@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import AppHeader from "./components/layout/AppHeader.vue";
-import AppFooter from "./components/layout/AppFooter.vue";
+import AppHeader from "./components/layout/AppHeader";
+import AppFooter from "./components/layout/AppFooter";
 
 export default {
   name: "App",
@@ -28,7 +28,9 @@ export default {
 </script>
 
 <style src='@/assets/styles/utils.css'>
+</style>
 
+<style src='@/assets/styles/screen-md.css'>
 </style>
 
 <style>

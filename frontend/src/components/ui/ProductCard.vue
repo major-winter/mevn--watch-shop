@@ -53,7 +53,7 @@ export default {
   margin-top: 1rem;
   animation-name: fadeIn;
   animation-timing-function: ease-in-out;
-  animation-duration: 2s;
+  animation-duration: 250ms;
 }
 
 .product--img {
@@ -64,12 +64,9 @@ export default {
 .product--img img {
   max-width: 120px;
   min-height: 120px;
-  /* width: auto;
-  height: auto; */
 }
 
 .product-details {
-  /* background: lightgrey; */
   border-top: 2px solid lightgray;
   padding: 1rem;
 }

@@ -13,12 +13,20 @@ module.exports = {
       alias: {
         "@": path.resolve(__dirname, "src/")
       }
+    },
+
+    optimization: {
+      splitChunks: {
+        chunks: 'all'
+      }
     }
   },
+  
   chainWebpack: config => {
     config.plugin('html').tap(args => {
       args[0].title = 'Watch Boutique'
       return args
-    })
+    }),
+      config.plugins.delete('prefetch')
   }
 }

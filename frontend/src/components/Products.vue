@@ -1,5 +1,5 @@
 <template>
-  <div class="product page">
+  <div class="product">
     <div class="container product--item--container">
       <h2>Feature Products</h2>
       <div class="product--item" v-if="products.length > 0 ? true : false">

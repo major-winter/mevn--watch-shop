@@ -1,10 +1,12 @@
 <template>
   <div class="product--screen">
     <div class="product--screen__container">
+
       <div class="product--screen__details">
         <div class="product--screen__details--img">
           <img :src="product.image" :alt="product.name" />
         </div>
+
         <div class="product--screen__details--description">
           <div class="container">
             <div class="product--title">
@@ -15,23 +17,22 @@
               <p>${{ product.price }}</p>
 
               <m-button
-                class="btn btn__cart"
+                class="btn btn__cart mt-1"
                 v-on:clicked="addToCartHandler"
                 v-if="product.qty > 0"
               >
                 <span v-if="!isAdded">Add to Cart</span>
                 <span v-else>
-                  <router-link to="/cart">View Cart</router-link>
+                  <router-link to="/cart" class="link">View Cart</router-link>
                 </span>
               </m-button>
 
               <m-button
-                class="btn btn__buy"
+                class="btn btn__buy mt-1"
                 @clicked="buyProductHandler"
                 v-if="product.qty > 0"
                 >Buy</m-button
               >
-
               <h3 v-else class="mt-2 text--danger">Out of Stock</h3>
             </div>
           </div>
@@ -60,7 +61,6 @@ export default {
 
   created() {
     this.getProduct();
-    // this.addToCartHandler();
   },
 
   mounted() {
@@ -136,9 +136,6 @@ export default {
 .product--description {
   text-align: center;
 }
-.btn {
-  margin-top: 2rem;
-}
 
 .btn__cart,
 .btn__buy {
@@ -146,6 +143,7 @@ export default {
   box-shadow: none;
   background: white;
   border: 2px solid #e1e1e1;
+  height: 2.5rem;
 }
 
 .btn__buy {

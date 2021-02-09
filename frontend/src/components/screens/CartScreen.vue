@@ -2,7 +2,7 @@
   <div class="cart mt-2">
     <app-loader v-if="getLoading"></app-loader>
 
-    <h1>Your Cart</h1>
+    <h1 class="mb-1">Your Cart</h1>
     <div class="container cart--container" v-if="getCartItems.length > 0">
       <div
         v-for="product in getCartItems"
