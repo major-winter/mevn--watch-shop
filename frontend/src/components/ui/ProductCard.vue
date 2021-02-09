@@ -12,7 +12,7 @@
           </div>
           <div class="product-description">
             <p class="product-price">
-              Price: ${{ product.price || "Product Price" }}
+              Price: ${{ (product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")) || "Product Price" }}
             </p>
           </div>
         </div>

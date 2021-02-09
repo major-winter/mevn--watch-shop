@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { saveToLocalStorage } from '../../utils/storeUtils'
 
 const state = () => ({
   cart: JSON.parse(localStorage.getItem('cart')) || [],
@@ -62,7 +63,7 @@ const actions = {
     } else {
       cart.push(payload.product)
     }
-    localStorage.setItem("cart", JSON.stringify(cart))
+    await saveToLocalStorage([{ 'cart': cart }])
 
     if (cartId) {
       const { data } = await axios.post(`/api/cart/${cartId}`, { cartItems: cart }, {
@@ -80,6 +81,7 @@ const actions = {
       })
       cartId = data._id
       localStorage.setItem('cartId', JSON.stringify(cartId))
+      await saveToLocalStorage([{ cartId }])
       commit('SET_CART', { cart, cartId: data._id })
     }
   },

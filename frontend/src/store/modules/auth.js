@@ -1,4 +1,8 @@
 import axios from 'axios'
+import {
+  saveToLocalStorage,
+  removeFromLocalStorage
+} from '../../utils/storeUtils'
 
 const state = () => ({
   status: '',
@@ -47,9 +51,7 @@ const actions = {
       const { data } = await axios.post("/api/users", payload)
       const { token, user } = data
       const userName = user.username
-      localStorage.setItem("token", JSON.stringify(token))
-      localStorage.setItem("user", JSON.stringify(user))
-      await localStorage.setItem("userName", JSON.stringify(userName))
+      await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }])
       commit('SIGN_UP', user)
     } catch (error) {
       console.log(error.message)
@@ -62,21 +64,16 @@ const actions = {
       const { data } = await axios.post("/api/users/login", requestBody)
       const { token, user } = data
       const userName = user.username
-      await localStorage.setItem("token", JSON.stringify(token))
-      await localStorage.setItem("user", JSON.stringify(user))
-      await localStorage.setItem("userName", JSON.stringify(userName))
+      await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }])
       commit('SET_USER', user)
     } catch (error) {
       const { data } = error.response
-      console.log(data.message)
+      return data.message
     }
   },
 
   async USER_LOGOUT ({ commit }) {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    localStorage.removeItem('cart')
-    localStorage.removeItem('cartId')
+    await removeFromLocalStorage(['token', 'user', 'cart', 'cartId', 'userName'])
     commit('REMOVE_TOKEN')
   }
 }

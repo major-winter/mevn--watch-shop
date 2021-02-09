@@ -46,7 +46,27 @@ const products = [
     price: 499,
     image: 'https://cdn-images.farfetch-contents.com/14/62/99/59/14629959_22893287_600.jpg',
     qty: 0
-  }
+  },
+  {
+    name: 'Hublot',
+    price: 150000,
+    image: 'https://cdn-images.farfetch-contents.com/15/76/46/94/15764694_28710965_1000.jpg',
+    qty: 4
+  },
+
+  {
+    name: 'Hublot',
+    price: 450000,
+    image: 'https://cdn-images.farfetch-contents.com/15/76/47/08/15764708_28715373_600.jpg',
+    qty: 8
+  },
+
+  {
+    name: 'Tag Heuer',
+    price: 250000,
+    image: 'https://cdn-images.farfetch-contents.com/16/06/37/63/16063763_30172986_600.jpg',
+    qty: 0
+  },
 ]
 
 module.exports = products

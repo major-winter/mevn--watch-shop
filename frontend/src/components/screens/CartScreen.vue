@@ -21,7 +21,11 @@
 
         <div class="product--buying--info flex-between">
           <p>Price:</p>
-          <p>${{ product.price }}</p>
+          <p>
+            ${{
+              product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }}
+          </p>
         </div>
 
         <select-box
@@ -88,7 +92,7 @@ export default {
         totalPrice += product.price * product.purchaseQty;
       });
 
-      return totalPrice;
+      return totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
 
     getCartItems() {

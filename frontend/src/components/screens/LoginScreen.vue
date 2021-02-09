@@ -63,7 +63,8 @@ export default {
         password: this.loginForm.password,
       };
 
-      await this.store.dispatch(USER_LOGIN, requestBody);
+      const data = await this.store.dispatch(USER_LOGIN, requestBody);
+      console.log(data);
       await this.store.dispatch("GET_CART_ITEMS");
 
       const redirectTo = window.location.search.split("=")[1];
