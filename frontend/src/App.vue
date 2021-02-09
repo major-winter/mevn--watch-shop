@@ -87,6 +87,11 @@ img {
   padding: 0.5rem 0;
 }
 
+textarea:focus,
+input:focus {
+  outline: 0;
+}
+
 .white {
   color: #fff;
 }
