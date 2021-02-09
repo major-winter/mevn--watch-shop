@@ -1,7 +1,6 @@
 <template>
   <div class="product--screen">
     <div class="product--screen__container">
-
       <div class="product--screen__details">
         <div class="product--screen__details--img">
           <img :src="product.image" :alt="product.name" />
@@ -19,13 +18,17 @@
               <m-button
                 class="btn btn__cart mt-1"
                 v-on:clicked="addToCartHandler"
-                v-if="product.qty > 0"
+                v-if="product.qty > 0 && !isAdded"
               >
-                <span v-if="!isAdded">Add to Cart</span>
-                <span v-else>
-                  <router-link to="/cart" class="link">View Cart</router-link>
-                </span>
+                <span>Add to Cart</span>
               </m-button>
+
+              <router-link
+                to="/cart"
+                v-if="isAdded"
+                class="link btn btn__cart mt-1"
+                >View Cart</router-link
+              >
 
               <m-button
                 class="btn btn__buy mt-1"
@@ -69,12 +72,14 @@ export default {
 
   methods: {
     async getProduct() {
-      const { data } = await axios.get(`/api/products/${this.$route.params.id}`);
+      const { data } = await axios.get(
+        `/api/products/${this.$route.params.id}`
+      );
       this.product = {
         ...data,
         purchaseQty: 1,
         productId: data._id,
-        countInStock: data.qty
+        countInStock: data.qty,
       };
     },
 
