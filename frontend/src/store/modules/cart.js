@@ -2,12 +2,17 @@ import axios from 'axios'
 
 const state = () => ({
   cart: JSON.parse(localStorage.getItem('cart')) || [],
-  cartId: ''
+  cartId: '',
+  loading: false
 })
 
 const getters = {
   getCart (state) {
     return state.cart
+  },
+
+  getLoading (state) {
+    return state.loading
   }
 }
 
@@ -23,6 +28,10 @@ const mutations = {
 
   UPDATE_CART (state, payload) {
     state.cart = [...payload]
+  },
+
+  LOADING (state, payload) {
+    state.loading = payload
   }
 
 }
@@ -93,13 +102,21 @@ const actions = {
         'Authorization': `Bearer ${token} `
       }
     })
-
     commit('UPDATE_CART', cart)
   },
 
-  // async REMOVE_FROM_CART ({ commit }, payload) {
-
-  // }
+  async REMOVE_FROM_CART ({ commit }, payload) {
+    let cartId = JSON.parse(localStorage.getItem('cartId'))
+    const token = await JSON.parse(localStorage.getItem('token'))
+    const { data } = await axios.delete(`/api/cart/${cartId}?productId=${payload}`, {
+      headers: {
+        'Authorization': `Bearer ${token} `
+      }
+    })
+    localStorage.setItem('cart', JSON.stringify(data.cartItems))
+    commit('UPDATE_CART', data.cartItems)
+    commit('LOADING', false)
+  }
 }
 
 export default {

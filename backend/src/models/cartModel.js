@@ -45,5 +45,11 @@ cartSchema.methods.udpateProductInCard = async function (productId, payload) {
   })
 }
 
+cartSchema.methods.deleteProductById = async function (productId) {
+  this.cartItems = this.cartItems.filter(item => item.productId != productId)
+  return this.cartItems
+
+}
+
 const Cart = mongoose.model('Cart', cartSchema)
 module.exports = Cart

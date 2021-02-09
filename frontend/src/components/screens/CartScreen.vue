@@ -1,9 +1,11 @@
 <template>
   <div class="cart mt-2">
+    <app-loader v-if="getLoading"></app-loader>
+
     <h1>Your Cart</h1>
-    <div class="container cart--container" v-if="products.length > 0">
+    <div class="container cart--container" v-if="getCartItems.length > 0">
       <div
-        v-for="product in products"
+        v-for="product in getCartItems"
         :key="product._id"
         class="product--card mb-1"
       >
@@ -24,7 +26,7 @@
 
         <select-box
           @selected="selectHandler"
-          :value="+product.qty"
+          :value="+product.countInStock"
           :select-name="product.name"
           :product-id="product._id"
           :init-value="product.purchaseQty"
@@ -56,16 +58,17 @@
     <div v-else>
       <p>
         Your Cart is empty.
-        <router-link to="/">Go Shop Now</router-link>
+        <router-link to="/" class="link">Go Shop Now</router-link>
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import SelectBox from "../ui/SelectBox";
 import mixins from "../../mixins/getQtyMixins";
+import SelectBox from "../ui/SelectBox";
 import mButton from "../ui/Button";
+import AppLoader from "../ui/AppLoader";
 
 export default {
   name: "CartScreen",
@@ -73,7 +76,6 @@ export default {
   data() {
     return {
       products: [],
-      cartItems: {},
     };
   },
 
@@ -92,11 +94,16 @@ export default {
     getCartItems() {
       return this.$store.getters.getCart;
     },
+
+    getLoading() {
+      return this.$store.getters.getLoading;
+    },
   },
 
   components: {
     SelectBox,
     mButton,
+    AppLoader,
   },
 
   mounted() {
@@ -114,9 +121,10 @@ export default {
       this.$store.dispatch("UPDATE_CART", product);
     },
 
-    removeProductHandler(e) {
+    async removeProductHandler(e) {
+      this.$store.commit("LOADING", true);
       const productId = e.target.parentNode.getAttribute("data-id");
-      console.log(productId);
+      await this.$store.dispatch("REMOVE_FROM_CART", productId);
     },
   },
 };

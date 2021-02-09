@@ -15,8 +15,7 @@ router.post('/api/cart', auth, async (req, res) => {
       cartItems,
       owner: req.user._id
     })
-    cart.save()
-
+    await cart.save()
     res.send(cart)
   } catch (error) {
     res.status(400).send('No product to be added')
@@ -68,6 +67,21 @@ router.patch('/api/cart/:id', auth, async (req, res) => {
     existedCart.udpateProductInCard(productId, purQty)
     await existedCart.save()
     res.send(existedCart)
+  } catch (error) {
+    res.status(400).send()
+  }
+})
+
+// DELETE /cart/:id?productId=
+// @Description Delete cart by id
+// @Access Private
+router.delete('/api/cart/:id', auth, async (req, res) => {
+  try {
+    const { productId } = req.query
+    const cart = await Cart.findById(req.params.id)
+    await cart.deleteProductById(productId)
+    await cart.save()
+    res.send(cart)
   } catch (error) {
     res.status(400).send()
   }

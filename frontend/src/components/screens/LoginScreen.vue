@@ -4,7 +4,7 @@
       <m-button class="mt-1 form--btn" @clicked="loginHandler">LOGIN</m-button>
       <div class="signup--link">
         <p>
-          Not a member.
+          Not a member?
           <router-link to="/signup" tag="p" class="link"
             >Sign up now</router-link
           >

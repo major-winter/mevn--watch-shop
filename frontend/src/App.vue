@@ -27,6 +27,10 @@ export default {
 };
 </script>
 
+<style src='@/assets/styles/utils.css'>
+
+</style>
+
 <style>
 *,
 *::before,

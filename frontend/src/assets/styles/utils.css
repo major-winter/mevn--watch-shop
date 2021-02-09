@@ -21,3 +21,9 @@
 .text--success {
 	color: rgb(91, 255, 86);
 }
+
+.link {
+	color: #197bbd;
+	font-weight: 600;
+	text-decoration: none;
+}

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const connectionURL = 'mongodb://127.0.0.1:27017/MEVN-watch-shop'
+// const connectionURL = 'mongodb://127.0.0.1:27017/MEVN-watch-shop'
 
 const mongo_cloud = 'mongodb+srv://jason:1234@cluster0.zdrhc.mongodb.net/mevn-watch-shop'
 

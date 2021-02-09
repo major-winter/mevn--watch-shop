@@ -74,6 +74,7 @@ export default {
         ...data,
         purchaseQty: 1,
         productId: data._id,
+        countInStock: data.qty
       };
     },
 
