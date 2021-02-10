@@ -30,8 +30,8 @@
           :product-id="product._id"
           :init-value="product.purchaseQty"
           class="select--box"
-          >Quantity:</select-box
-        >
+          >Quantity:
+        </select-box>
 
         <button class="danger" :data-id="product._id">
           <i

@@ -28,8 +28,7 @@ export default {
   name: "SelectBox",
   data() {
     return {
-      quantity: 1,
-      selected: this.initValue,
+      // selected: 0,
     };
   },
 
@@ -49,8 +48,15 @@ export default {
     },
   },
 
-  created() {
-    this.selected = this.initValue;
+  computed: {
+    selected: {
+      get() {
+        return this.initValue;
+      },
+      set(e) {
+        return e;
+      },
+    },
   },
 
   methods: {
