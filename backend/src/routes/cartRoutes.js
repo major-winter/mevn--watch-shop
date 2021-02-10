@@ -16,6 +16,7 @@ router.post('/api/cart', auth, async (req, res) => {
       owner: req.user._id
     })
     await cart.save()
+    await req.user.populate('cart').execPopulate()
     res.send(cart)
   } catch (error) {
     res.status(400).send('No product to be added')

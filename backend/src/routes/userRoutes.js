@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/userModel')
+const Cart = require('../models/cartModel')
 const auth = require('../middleware/auth')
 
 // GET get all users
@@ -27,13 +28,18 @@ router.post('/api/users', async (req, res) => {
 
 // POST login user
 router.post('/api/users/login', async (req, res) => {
-  const { email, password } = req.body
   try {
+    const { email, password, token: userToken } = req.body
     const user = await User.findByCredentials(email, password)
+
+    const existedToken = user.tokens.find(item => item.token == userToken)
+    if (existedToken) {
+      return res.send({ user, token: existedToken.token })
+    }
     const token = await user.generateAuthToken()
     res.send({ user, token })
   } catch (error) {
-    res.status(400).send({message: 'Invalid username or password'})
+    res.status(400).send({ message: 'Invalid username or password' })
   }
 })
 

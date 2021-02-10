@@ -19,15 +19,6 @@ const userSchema = new mongoose.Schema({
       }
     }
   },
-  // age: {
-  //   type: Number,
-  //   required: true,
-  //   validate (value) {
-  //     if (value < 18) {
-  //       throw new Error("You're under age")
-  //     }
-  //   }
-  // },
   email: {
     type: String,
     required: true,
@@ -44,6 +35,7 @@ const userSchema = new mongoose.Schema({
   profileImage: {
     type: String
   },
+
   tokens: [{
     token: {
       type: String,
@@ -60,7 +52,7 @@ userSchema.virtual('cart', {
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY)
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY, {expiresIn: '1h'})
 
   user.tokens = user.tokens.concat({ token })
   await user.save()
