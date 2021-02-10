@@ -20,11 +20,7 @@
 
         <div class="product--buying--info flex-between">
           <p>Price:</p>
-          <p>
-            ${{
-              product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            }}
-          </p>
+          <p>${{ product.price }}</p>
         </div>
 
         <select-box

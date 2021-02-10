@@ -21,7 +21,8 @@
                 v-on:clicked="addToCartHandler"
                 v-if="product.qty > 0 && !isAdded"
               >
-                <span>Add to Cart</span>
+                <span v-if="spinner">Loading...</span>
+                <span v-else>Add to Cart</span>
               </m-button>
 
               <router-link
@@ -57,6 +58,7 @@ export default {
     return {
       product: {},
       isAdded: false,
+      spinner: false,
     };
   },
   computed: {
@@ -88,7 +90,7 @@ export default {
       };
     },
 
-    addToCartHandler() {
+    async addToCartHandler() {
       let cartProduct = {
         purchaseQty: 1,
         productName: this.product.name,
@@ -96,15 +98,21 @@ export default {
         image: this.product.image,
         countInStock: this.product.qty,
       };
-      this.$store.dispatch("ADD_TO_CART", {
+
+      this.spinner = true;
+      const addToCart = await this.$store.dispatch("ADD_TO_CART", {
         cartProduct,
         product: this.product,
       });
-      this.isAdded = true;
+
+      if (addToCart) {
+        this.spinner = false;
+        this.isAdded = true;
+      }
     },
 
     async checkExistedProduct() {
-       this.$store.commit("LOADING", true);
+      this.$store.commit("LOADING", true);
       let cart = await JSON.parse(localStorage.getItem("cart"));
       if (cart) {
         const existedProduct = await cart.find(

@@ -84,6 +84,8 @@ const actions = {
       await saveToLocalStorage([{ cartId }])
       commit('SET_CART', { cart, cartId: data._id })
     }
+
+    return true
   },
 
   async UPDATE_CART ({ commit }, payload) {
