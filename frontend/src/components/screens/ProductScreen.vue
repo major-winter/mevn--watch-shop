@@ -20,6 +20,7 @@
                 class="btn btn__cart mt-1"
                 v-on:clicked="addToCartHandler"
                 v-if="product.qty > 0 && !isAdded"
+                :disabled="spinner ? true : false"
               >
                 <span v-if="spinner">Loading...</span>
                 <span v-else>Add to Cart</span>
