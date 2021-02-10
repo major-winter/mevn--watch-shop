@@ -69,7 +69,6 @@ router.beforeEach((to, from, next) => {
     if (!token) {
       next({ name: 'loginScreen', query: { redirect: 'cart' } })
     } else {
-
       next()
     }
   } else {

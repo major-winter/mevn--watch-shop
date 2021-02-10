@@ -21,6 +21,7 @@ router.get('/api/products', async (req, res) => {
 
     if (search) {
       const product = await Product.findByName(search)
+      
       res.send(product)
     }
 

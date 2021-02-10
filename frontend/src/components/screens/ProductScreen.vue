@@ -1,6 +1,7 @@
 <template>
   <div class="product--screen">
-    <div class="product--screen__container">
+    <app-loader v-if="isLoading"></app-loader>
+    <div class="product--screen__container" v-else>
       <div class="product--screen__details">
         <div class="product--screen__details--img">
           <img :src="product.image" :alt="product.name" />
@@ -48,6 +49,7 @@
 <script>
 import mButton from "../ui/Button";
 import axios from "axios";
+import AppLoader from "../ui/AppLoader";
 
 export default {
   name: "ProductScreen",
@@ -57,16 +59,19 @@ export default {
       isAdded: false,
     };
   },
-
+  computed: {
+    isLoading() {
+      return this.$store.getters.getLoading;
+    },
+  },
   components: {
     mButton,
+    AppLoader,
   },
 
   created() {
+    this.$store.commit("LOADING", true);
     this.getProduct();
-  },
-
-  mounted() {
     this.checkExistedProduct();
   },
 
@@ -98,16 +103,19 @@ export default {
       this.isAdded = true;
     },
 
-    checkExistedProduct() {
-      let cart = JSON.parse(localStorage.getItem("cart"));
+    async checkExistedProduct() {
+       this.$store.commit("LOADING", true);
+      let cart = await JSON.parse(localStorage.getItem("cart"));
       if (cart) {
-        const existedProduct = cart.find(
+        const existedProduct = await cart.find(
           (product) => product._id === this.$route.params.id
         );
         if (existedProduct) {
           this.isAdded = true;
         }
       }
+
+      this.$store.commit("LOADING", false);
     },
 
     buyProductHandler() {

@@ -28,6 +28,9 @@ const productSchema = mongoose.Schema({
 
 productSchema.statics.findByName = async function (search) {
   const searchingProduct = await Product.find({ name: { $regex: search, $options: '$i' } })
+  if (searchingProduct.length === 0) {
+    return { message: 'Product Not Found. Please try another search!' }
+  }
   return searchingProduct
 }
 

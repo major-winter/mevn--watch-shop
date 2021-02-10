@@ -1,7 +1,6 @@
 <template>
   <div class="cart">
-    <app-loader v-if="getLoading"></app-loader>
-
+    <app-loader v-if="isLoading"></app-loader>
     <h1 class="mb-1">Your Cart</h1>
     <div class="container cart--container" v-if="getCartItems.length > 0">
       <div
@@ -69,14 +68,12 @@
 </template>
 
 <script>
-import mixins from "../../mixins/getQtyMixins";
 import SelectBox from "../ui/SelectBox";
 import mButton from "../ui/Button";
 import AppLoader from "../ui/AppLoader";
 
 export default {
   name: "CartScreen",
-  mixins: [mixins],
   data() {
     return {
       products: [],
@@ -99,7 +96,7 @@ export default {
       return this.$store.getters.getCart;
     },
 
-    getLoading() {
+    isLoading() {
       return this.$store.getters.getLoading;
     },
   },
@@ -129,6 +126,7 @@ export default {
       this.$store.commit("LOADING", true);
       const productId = e.target.parentNode.getAttribute("data-id");
       await this.$store.dispatch("REMOVE_FROM_CART", productId);
+      this.$store.commit("LOADING", false);
     },
   },
 };

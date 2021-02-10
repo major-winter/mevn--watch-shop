@@ -1,5 +1,6 @@
 <template>
   <div class="product">
+    <app-loader v-if="isLoading"></app-loader>
     <div class="container product--item--container">
       <div class="search-box mb-1">
         <input
@@ -10,13 +11,16 @@
         />
         <button class="search__btn"><i class="fas fa-search"></i></button>
       </div>
-      <h2>Feature Products</h2>
-      <div class="product--item" v-if="products.length > 0 ? true : false">
-        <product-card
-          v-for="product in products"
-          :product="product"
-          :key="product.id"
-        ></product-card>
+      <div v-if="error" class="text--danger text--bold">{{ error }}</div>
+      <div v-else>
+        <h2>Feature Products</h2>
+        <div class="product--item" v-if="products.length > 0 ? true : false">
+          <product-card
+            v-for="product in products"
+            :product="product"
+            :key="product.id"
+          ></product-card>
+        </div>
       </div>
     </div>
   </div>
@@ -25,6 +29,7 @@
 <script>
 import ProductCard from "./ui/ProductCard.vue";
 import axios from "axios";
+import AppLoader from "./ui/AppLoader";
 
 export default {
   name: "Products",
@@ -32,21 +37,27 @@ export default {
     return {
       products: [],
       searchTerm: "",
+      isLoading: false,
+      error: "",
     };
   },
 
   components: {
     ProductCard,
+    AppLoader,
   },
 
   created() {
     this.getProduct();
   },
 
+  updated() {
+    this.isLoading = false;
+  },
   methods: {
     async getProduct() {
+      this.error = "";
       const { data } = await axios.get("/api/products");
-      // const { data } = await axios.get(`/api/products?search=casio`);
       this.products = data;
     },
 
@@ -55,6 +66,9 @@ export default {
       const { data } = await axios.get(
         `/api/products?search=${this.searchTerm}`
       );
+      if (data.message) {
+        this.error = data.message;
+      }
       this.products = data;
     },
   },
