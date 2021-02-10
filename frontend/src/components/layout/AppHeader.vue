@@ -6,18 +6,15 @@
 
     <nav class="navbar--mobile">
       <div class="container">
-        <ul class="">
-          <router-link
-            v-for="item in mobileNavMenu"
-            :key="item.id"
-            :to="item.path"
-            tag="li"
-          >
-            <span @click="navbarHandler">
-              <i :class="item.icon"></i>
-              {{ item.name }}
-            </span>
-          </router-link>
+        <ul class="navbar__list-items">
+          <li v-for="item in mobileNavMenu" :key="item.id" class="navbar__item">
+            <router-link :to="item.path">
+              <span @click="navbarHandler">
+                <i :class="item.icon"></i>
+                {{ item.name }}
+              </span>
+            </router-link>
+          </li>
         </ul>
       </div>
     </nav>
@@ -83,9 +80,8 @@ export default {
     },
 
     userName() {
-      console.log('username')
-      return this.$store.getters.getUserName
-    }
+      return this.$store.getters.getUserName;
+    },
   },
 
   watch: {
@@ -140,18 +136,6 @@ export default {
   z-index: -2;
 }
 
-/* .background-img::before {
-  content: "";
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  background-image: linear-gradient(
-    45deg,
-    rgba(68, 68, 68, 0.4),
-    rgba(46, 46, 46, 0.3)
-  );
-} */
 
 .nav {
   background: #333333;
@@ -212,6 +196,11 @@ export default {
 .navbar--mobile ul li:hover,
 .navbar--mobile ul li:active {
   color: white;
+}
+
+.navbar__item > *{
+  color: #fff;
+  text-decoration: none;
 }
 
 .navbar-show {
