@@ -33,11 +33,12 @@ router.post('/api/users/login', async (req, res) => {
     const user = await User.findByCredentials(email, password)
 
     const existedToken = user.tokens.find(item => item.token == userToken)
+    const cart = await Cart.findOne({ owner: user._id })
     if (existedToken) {
-      return res.send({ user, token: existedToken.token })
+      return res.send({ user, token: existedToken.token, cartId: cart._id })
     }
     const token = await user.generateAuthToken()
-    res.send({ user, token })
+    res.send({ user, token, cartId: cart._id })
   } catch (error) {
     res.status(400).send({ message: 'Invalid username or password' })
   }
@@ -72,7 +73,7 @@ router.post('/api/users/logoutAll', auth, async (req, res) => {
 
 // PATCH update a user
 router.patch('/api/users/me', auth, async (req, res) => {
-  const updates = Object.keys(req.body)
+  const updates = cart.keys(req.body)
   const allowedUpdates = ["username", "email", "password", "age"]
   const isValidOperation = updates.every((update) => allowedUpdates.includes(update)
   )

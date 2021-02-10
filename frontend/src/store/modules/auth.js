@@ -61,11 +61,24 @@ const actions = {
 
   async USER_LOGIN ({ commit }, requestBody) {
     try {
-      const { data } = await axios.post("/api/users/login", requestBody)
-      const { token, user } = data
-      const userName = user.username
-      await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }])
-      commit('SET_USER', user)
+      const token = JSON.parse(localStorage.getItem('token'))
+      if (!token) {
+        const { data } = await axios.post("/api/users/login", { ...requestBody })
+        const { token, user, cartId } = data
+        const userName = user.username
+        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }])
+        commit('SET_USER', user)
+      } else {
+        const { data } = await axios.post("/api/users/login", { ...requestBody, token })
+        const { token, user, cartId } = data
+        const userName = user.username
+        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }])
+        commit('SET_USER', user)
+      }
+      // const { token, user, cartId } = data
+      // const userName = user.username
+      // await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }])
+      // commit('SET_USER', user)
     } catch (error) {
       const { data } = error.response
       return data.message
