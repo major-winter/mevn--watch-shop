@@ -105,9 +105,6 @@ export default {
 
   created() {
     this.initCart();
-  },
-
-  mounted() {
     this.products = this.getCartItems;
   },
 

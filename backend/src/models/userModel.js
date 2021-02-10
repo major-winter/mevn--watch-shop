@@ -52,7 +52,7 @@ userSchema.virtual('cart', {
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY, {expiresIn: '1h'})
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY, { expiresIn: '1 day' })
 
   user.tokens = user.tokens.concat({ token })
   await user.save()

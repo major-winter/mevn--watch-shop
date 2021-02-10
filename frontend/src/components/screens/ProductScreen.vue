@@ -22,7 +22,7 @@
                 v-if="product.qty > 0 && !isAdded"
                 :disabled="spinner ? true : false"
               >
-                <span v-if="spinner">Loading...</span>
+                <app-mini-loader v-if="spinner"></app-mini-loader>
                 <span v-else>Add to Cart</span>
               </m-button>
 
@@ -52,6 +52,7 @@
 import mButton from "../ui/Button";
 import axios from "axios";
 import AppLoader from "../ui/AppLoader";
+import AppMiniLoader from "../ui/AppMiniLoader";
 
 export default {
   name: "ProductScreen",
@@ -69,6 +70,7 @@ export default {
   },
   components: {
     mButton,
+    AppMiniLoader,
     AppLoader,
   },
 
@@ -166,6 +168,10 @@ export default {
   background: white;
   border: 2px solid #e1e1e1;
   height: 2.5rem;
+}
+
+.btn__cart {
+  position: relative;
 }
 
 .btn__buy {
