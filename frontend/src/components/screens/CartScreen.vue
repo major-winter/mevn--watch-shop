@@ -1,5 +1,5 @@
 <template>
-  <div class="cart mt-2">
+  <div class="cart">
     <app-loader v-if="getLoading"></app-loader>
 
     <h1 class="mb-1">Your Cart</h1>

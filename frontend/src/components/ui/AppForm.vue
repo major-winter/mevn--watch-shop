@@ -13,6 +13,7 @@
             class="mb-1 form--data__input"
             @input="$emit('input', $event.target)"
             :placeholder="input.placeholder"
+            autocomplete="on"
             @keydown.enter="$emit('enter')"
           />
         </span>

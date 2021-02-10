@@ -112,6 +112,9 @@ export default {
 </script>
 
 
+<style src='@/assets/styles/screen-md.css'>
+</style>
+
 <style scoped>
 .header {
   height: 10vh;

@@ -30,8 +30,6 @@ export default {
 <style src='@/assets/styles/utils.css'>
 </style>
 
-<style src='@/assets/styles/screen-md.css'>
-</style>
 
 <style>
 *,

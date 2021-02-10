@@ -74,6 +74,7 @@ export default {
 .select {
   width: 3rem;
   border: 1px solid #e0e0e0;
+  font-size: 1rem;
 }
 
 .select option {

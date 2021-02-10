@@ -1,13 +1,17 @@
 <template>
-  <div class="login mt-2">
+  <div class="login">
+    <div v-if="error" class="text--danger text--center text--bold">
+      {{ error }}
+    </div>
     <app-form :form-data="formData" @input="inputHandler($event, 'loginForm')">
       <m-button class="mt-1 form--btn" @clicked="loginHandler">LOGIN</m-button>
+
       <div class="signup--link mt-1">
         <p>
-          Not a member?
-          <router-link to="/signup" tag="p" class="link"
-            >Sign up now</router-link
-          >
+          <span> Not a member? </span>
+          <span>
+            <router-link to="/signup" class="link">Sign up now</router-link>
+          </span>
         </p>
       </div>
     </app-form>
@@ -41,6 +45,7 @@ export default {
         password: "",
       },
       store: null,
+      error: "",
     };
   },
 
@@ -64,9 +69,12 @@ export default {
       };
 
       const data = await this.store.dispatch(USER_LOGIN, requestBody);
-      console.log(data);
-      await this.store.dispatch("GET_CART_ITEMS");
 
+      if (data) {
+        return (this.error = data);
+      }
+
+      await this.store.dispatch("GET_CART_ITEMS");
       const redirectTo = window.location.search.split("=")[1];
       if (this.store.getters.getStatus && redirectTo) {
         this.$router.push({ path: redirectTo });
