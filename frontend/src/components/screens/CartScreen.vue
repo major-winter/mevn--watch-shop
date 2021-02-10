@@ -107,11 +107,19 @@ export default {
     AppLoader,
   },
 
+  created() {
+    this.initCart();
+  },
+
   mounted() {
     this.products = this.getCartItems;
   },
 
   methods: {
+    async initCart() {
+      await this.$store.dispatch("GET_CART_ITEMS");
+    },
+
     continueShoppingHandler() {
       this.$router.push({ path: "/" });
     },
