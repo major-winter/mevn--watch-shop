@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <app-modal
-      v-if="isLoggedOut"
-      @clicked="isLoggedOut = !isLoggedOut"
+      v-if="showModal"
+      @clicked="
+        () => {
+          this.$store.commit('SHOW_MODAL', false);
+        }
+      "
     ></app-modal>
     <app-header></app-header>
     <main>
@@ -26,6 +30,13 @@ export default {
       isLoggedOut: false,
     };
   },
+
+  computed: {
+    showModal() {
+      return this.$store.getters.getShowModal;
+    },
+  },
+
   components: {
     AppHeader,
     AppFooter,

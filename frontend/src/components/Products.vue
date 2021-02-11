@@ -54,6 +54,7 @@ export default {
   updated() {
     this.isLoading = false;
   },
+
   methods: {
     async getProduct() {
       this.error = "";
@@ -72,6 +73,7 @@ export default {
       this.products = data;
     },
   },
+
 };
 </script>
 

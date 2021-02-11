@@ -104,6 +104,7 @@ export default {
   },
 
   created() {
+    this.checkLogInStatus();
     this.initCart();
     this.products = this.getCartItems;
   },
@@ -128,6 +129,14 @@ export default {
       const productId = e.target.parentNode.getAttribute("data-id");
       await this.$store.dispatch("REMOVE_FROM_CART", productId);
       this.$store.commit("LOADING", false);
+    },
+
+    async checkLogInStatus() {
+      const { logout } = await this.$store.dispatch("INIT_AUTH");
+      if (logout) {
+        this.$store.dispatch("USER_LOGOUT");
+        this.$router.push("/login");
+      }
     },
   },
 };

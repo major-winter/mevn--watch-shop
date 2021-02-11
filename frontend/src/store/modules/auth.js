@@ -8,6 +8,7 @@ const state = () => ({
   status: '',
   userName: JSON.parse(localStorage.getItem('userName')) || '',
   token: JSON.parse(localStorage.getItem('token')) || '',
+  showModal: false
 })
 
 const getters = {
@@ -26,6 +27,10 @@ const getters = {
 
   getUserName (state) {
     return state.userName
+  },
+
+  getShowModal (state) {
+    return state.showModal
   }
 }
 const mutations = {
@@ -41,8 +46,11 @@ const mutations = {
   },
 
   REMOVE_TOKEN (state) {
-
     state.status = ''
+  },
+
+  SHOW_MODAL (state, payload) {
+    state.showModal = payload
   }
 }
 const actions = {
@@ -88,12 +96,12 @@ const actions = {
     commit('REMOVE_TOKEN')
   },
 
-  async INIT_AUTH () {
+  async INIT_AUTH ({ commit }) {
     let start = await JSON.parse(localStorage.getItem('start'))
     let end = Date.now()
     let timer = Math.floor((end - start) / 1000)
-
-    if (timer > 60 && start) {
+    if (timer > 600 && start) {
+      commit('SHOW_MODAL', true)
       return { logout: true }
     }
     return { logout: false }
@@ -101,7 +109,7 @@ const actions = {
 }
 
 export default {
-  namespace: true,
+  namespaced: true,
   state,
   getters,
   mutations,
