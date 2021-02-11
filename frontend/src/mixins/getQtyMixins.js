@@ -2,7 +2,6 @@ export default {
   methods: {
     qtySelected (payload) {
       this.qty = payload
-      console.log(this.qty, 'from mixin')
     },
 
     inputHandler (payload, type) {

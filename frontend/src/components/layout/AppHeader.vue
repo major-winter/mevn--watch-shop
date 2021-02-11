@@ -103,17 +103,9 @@ export default {
         ? (this.isNavbar = true)
         : (this.isNavbar = false);
     },
-
-    test() {
-      console.log("testing");
-    },
   },
 };
 </script>
-
-
-<style src='@/assets/styles/screen-md.css'>
-</style>
 
 <style scoped>
 .header {

@@ -7,6 +7,7 @@ const SignupScreen = () => import(/* webpackChunkName: "SignupScreen" */ '../com
 const NotFoundScreen = () => import(/* webpackChunkName: "NotFoundScreen" */ '../components/screens/NotFound')
 const ProfileScreen = () => import(/* webpackChunkName: "ProfileScreen" */ '../components/screens/ProfileScreen')
 const ContactScreen = () => import(/* webpackChunkName: "ProfileScreen" */ '../components/screens/ContactScreen')
+const CheckoutScreen = () => import(/* webpackChunkName: "ProfileScreen" */ '../components/screens/CheckoutScreen')
 
 const router = new VueRouter({
   mode: "history",
@@ -53,6 +54,15 @@ const router = new VueRouter({
       path: '/contact',
       name: 'contactScreen',
       component: ContactScreen,
+    },
+
+    {
+      path: '/checkout',
+      name: 'checkoutScreen',
+      component: CheckoutScreen,
+      meta: {
+        isAuth: false
+      }
     },
 
     {

@@ -63,7 +63,6 @@ export default {
 <style src='@/assets/styles/utils.css'>
 </style>
 
-
 <style>
 *,
 *::before,
@@ -146,4 +145,7 @@ input:focus {
 .fade-leave-active {
   transition: all 300ms ease-in;
 }
+</style>
+
+<style src='@/assets/styles/screen-md.css'>
 </style>

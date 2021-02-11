@@ -47,7 +47,10 @@
       </div>
 
       <div class="flex-between mt-2">
-        <m-button class="btn--checkout">Check out</m-button>
+        <m-button class="btn--checkout" @clicked="toCheckoutPage"
+          >Check out</m-button
+        >
+
         <m-button class="btn--continue" @clicked="continueShoppingHandler"
           >Continue Shopping</m-button
         >
@@ -137,6 +140,10 @@ export default {
         this.$store.dispatch("USER_LOGOUT");
         this.$router.push("/login");
       }
+    },
+
+    toCheckoutPage() {
+      this.$router.push({ path: "/checkout" });
     },
   },
 };

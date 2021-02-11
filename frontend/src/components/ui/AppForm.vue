@@ -4,7 +4,8 @@
       <div class="form--title">
         <h1>{{ formTitle }}</h1>
       </div>
-      <div class="form--data">
+
+      <div class="form--data text--left mt-1">
         <span v-for="input of formData" :key="input.index">
           <label for="">{{ input.label }}: </label>
           <input

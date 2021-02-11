@@ -1,5 +1,5 @@
 <template>
-  <div class="profile mt-1 page">
+  <div class="profile">
     <div class="container text--center">
       <h1>Hello {{ user.username }}</h1>
       <ul class="profile__list-items">
