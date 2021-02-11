@@ -37,8 +37,11 @@
                 class="btn btn__buy mt-1"
                 @clicked="buyProductHandler"
                 v-if="product.qty > 0"
-                >Buy</m-button
               >
+                <app-mini-loader v-if="buySpinner"></app-mini-loader>
+                <span v-if="!buySpinner && !isAdded">Buy Now</span>
+                <span v-if="isAdded">Go to Cart</span>
+              </m-button>
               <h3 v-else class="mt-2 text--danger">Out of Stock</h3>
             </div>
           </div>
@@ -61,6 +64,7 @@ export default {
       product: {},
       isAdded: false,
       spinner: false,
+      buySpinner: false,
     };
   },
   computed: {
@@ -125,12 +129,31 @@ export default {
           this.isAdded = true;
         }
       }
-
       this.$store.commit("LOADING", false);
     },
 
-    buyProductHandler() {
-      console.log("buying this product");
+    async buyProductHandler() {
+      if (this.isAdded) {
+        return this.$router.push({ path: "/cart" });
+      }
+      this.buySpinner = true;
+      let cartProduct = {
+        purchaseQty: 1,
+        productName: this.product.name,
+        productId: this.product._id,
+        image: this.product.image,
+        countInStock: this.product.qty,
+      };
+
+      const addToCart = await this.$store.dispatch("ADD_TO_CART", {
+        cartProduct,
+        product: this.product,
+      });
+
+      if (addToCart) {
+        this.buySpinner = false;
+        this.$router.push({ path: "/cart" });
+      }
     },
   },
 };
@@ -170,7 +193,8 @@ export default {
   height: 2.5rem;
 }
 
-.btn__cart {
+.btn__cart,
+.btn__buy {
   position: relative;
 }
 
