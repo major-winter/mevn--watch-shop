@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <app-modal
+      v-if="isLoggedOut"
+      @clicked="isLoggedOut = !isLoggedOut"
+    ></app-modal>
     <app-header></app-header>
     <main>
       <transition name="fade">
@@ -13,16 +17,34 @@
 <script>
 import AppHeader from "./components/layout/AppHeader";
 import AppFooter from "./components/layout/AppFooter";
+import AppModal from "./components/ui/AppModal";
 
 export default {
   name: "App",
+  data() {
+    return {
+      isLoggedOut: false,
+    };
+  },
   components: {
     AppHeader,
     AppFooter,
+    AppModal,
   },
 
   created() {
     this.$store.getters.isLoggedIn; //Check if the user has logged in
+    this.checkLogInStatus();
+  },
+
+  methods: {
+    async checkLogInStatus() {
+      const { logout } = await this.$store.dispatch("INIT_AUTH");
+      if (logout) {
+        this.isLoggedOut = true;
+        this.$store.dispatch("USER_LOGOUT");
+      }
+    },
   },
 };
 </script>

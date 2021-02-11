@@ -66,7 +66,8 @@ const actions = {
         const { data } = await axios.post("/api/users/login", { ...requestBody })
         const { token, user, cartId } = data
         const userName = user.username
-        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }])
+        let start = Date.now()
+        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }, { 'start': start }])
         commit('SET_USER', user)
       } else {
         const { data } = await axios.post("/api/users/login", { ...requestBody, token })
@@ -75,10 +76,7 @@ const actions = {
         await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }])
         commit('SET_USER', user)
       }
-      // const { token, user, cartId } = data
-      // const userName = user.username
-      // await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }])
-      // commit('SET_USER', user)
+
     } catch (error) {
       const { data } = error.response
       return data.message
@@ -86,8 +84,19 @@ const actions = {
   },
 
   async USER_LOGOUT ({ commit }) {
-    await removeFromLocalStorage(['token', 'user', 'cart', 'cartId', 'userName'])
+    await removeFromLocalStorage(['token', 'user', 'cart', 'cartId', 'userName', 'start'])
     commit('REMOVE_TOKEN')
+  },
+
+  async INIT_AUTH () {
+    let start = await JSON.parse(localStorage.getItem('start'))
+    let end = Date.now()
+    let timer = Math.floor((end - start) / 1000)
+
+    if (timer > 60 && start) {
+      return { logout: true }
+    }
+    return { logout: false }
   }
 }
 
