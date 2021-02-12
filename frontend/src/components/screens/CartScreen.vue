@@ -35,7 +35,7 @@
 
         <button class="danger" :data-id="product._id">
           <i
-            class="far fa-trash-alt d-inl-block"
+            class="far fa-trash-alt d-inl-block remove__icon"
             @click="removeProductHandler"
           ></i>
         </button>
@@ -177,6 +177,12 @@ export default {
   border-radius: 0.2rem;
   color: #fff;
   font-size: 1rem;
+  padding: 0;
+}
+
+.remove__icon {
+  width: 2rem;
+  height: auto;
 }
 
 .btn--checkout {

@@ -2,7 +2,7 @@
   <div id="app">
     <app-modal
       v-if="showModal"
-      @clicked="
+      @close="
         () => {
           this.$store.commit('SHOW_MODAL', false);
         }

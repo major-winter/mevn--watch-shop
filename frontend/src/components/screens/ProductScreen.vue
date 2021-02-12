@@ -159,7 +159,6 @@ export default {
 };
 </script>
 
-<style src='@/assets/styles/utils.css'></style>
 
 <style scoped>
 .container {

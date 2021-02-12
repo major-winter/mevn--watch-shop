@@ -11,7 +11,9 @@
         />
         <button class="search__btn"><i class="fas fa-search"></i></button>
       </div>
+
       <div v-if="error" class="text--danger text--bold">{{ error }}</div>
+
       <div v-else>
         <h2>Feature Products</h2>
         <div class="product--item" v-if="products.length > 0 ? true : false">
@@ -19,7 +21,8 @@
             v-for="product in products"
             :product="product"
             :key="product.id"
-          ></product-card>
+          >
+          </product-card>
         </div>
       </div>
     </div>
@@ -63,17 +66,20 @@ export default {
     },
 
     async getSearchProduct() {
-      if (this.searchTerm === "") this.getProduct();
+      if (this.searchTerm === "") return this.getProduct();
+
       const { data } = await axios.get(
         `/api/products?search=${this.searchTerm}`
       );
+
       if (data.message) {
         this.error = data.message;
+      } else {
+        this.error = "";
+        this.products = data;
       }
-      this.products = data;
     },
   },
-
 };
 </script>
 

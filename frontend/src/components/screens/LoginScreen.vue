@@ -1,5 +1,9 @@
 <template>
   <div class="login">
+    <app-modal v-if="needsFillIn" @close="needsFillIn = !needsFillIn"
+      >Email and Password can't be empty</app-modal
+    >
+
     <div v-if="error" class="text--danger text--center text--bold">
       {{ error }}
     </div>
@@ -21,6 +25,7 @@
 <script>
 import AppForm from "../ui/AppForm";
 import mButton from "../ui/Button";
+import AppModal from "../ui/AppModal";
 import mixins from "../../mixins/getQtyMixins";
 import { USER_LOGIN } from "../../constants/authConstants";
 // import axios from "axios";
@@ -46,12 +51,14 @@ export default {
       },
       store: null,
       error: "",
+      needsFillIn: false,
     };
   },
 
   components: {
     AppForm,
     mButton,
+    AppModal,
   },
 
   created() {
@@ -61,8 +68,9 @@ export default {
   methods: {
     async loginHandler() {
       if (this.loginForm.email === "" || this.loginForm.password === "") {
-        return alert("Fill in stupid head");
+        return (this.needsFillIn = true);
       }
+
       const requestBody = {
         email: this.loginForm.email,
         password: this.loginForm.password,
