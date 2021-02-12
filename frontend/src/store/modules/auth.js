@@ -61,8 +61,9 @@ const actions = {
       const userName = user.username
       await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }])
       commit('SIGN_UP', user)
+      return { result: data }
     } catch (error) {
-      console.log(error.message)
+      return { result: error.message }
     }
 
   },
