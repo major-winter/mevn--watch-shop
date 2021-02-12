@@ -7,7 +7,7 @@
     <div v-if="error" class="text--danger text--center text--bold">
       {{ error }}
     </div>
-    <app-form :form-data="formData" @input="inputHandler($event, 'loginForm')">
+    <app-form :form-data="formData" @onInput="inputHandler($event, 'loginForm')">
       <m-button class="mt-1 form--btn" @clicked="loginHandler">LOGIN</m-button>
 
       <div class="signup--link mt-1">

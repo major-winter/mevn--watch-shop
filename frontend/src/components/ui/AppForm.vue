@@ -12,10 +12,9 @@
             :type="input.type ? input.type : 'text'"
             :name="input.label.toLowerCase()"
             class="mb-1 form--data__input"
-            @input="$emit('input', $event.target)"
+            @input="$emit('onInput', $event.target)"
             :placeholder="input.placeholder"
             autocomplete="on"
-            @keydown.enter="$emit('enter')"
           />
         </span>
       </div>

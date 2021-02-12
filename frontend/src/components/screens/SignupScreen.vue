@@ -1,13 +1,12 @@
 <template>
-  <div class="signup mt-2">
+  <div class="signup">
     <app-modal v-if="needsFillIn" @close="needsFillIn = !needsFillIn">
-      You have to fill in!
+      A problem has occurred. Please check again!
     </app-modal>
     <app-form
       form-title="Sign Up"
       :form-data="formData"
-      @input="inputHandler($event, 'signupForm')"
-      @enter="signupHandler"
+      @onInput="inputHandler($event, 'signupForm')"
     >
       <m-button class="signup__btn" @clicked="signupHandler">Sign Up</m-button>
     </app-form>
@@ -42,7 +41,7 @@ export default {
         email: "",
         address: "",
       },
-
+      error: "",
       needsFillIn: false,
     };
   },
@@ -56,15 +55,9 @@ export default {
   methods: {
     async signupHandler() {
       const body = this.signupForm;
-      // const values = Object.values(body);
-      // const inputValidation = values.some((value) => value);
-      // if (!inputValidation) {
-      //   return (this.needsFillIn = true);
-      // }
-      // this.needsFillIn = false;
-        const { result } = await this.$store.dispatch("SIGN_UP", body);
+      const { result } = await this.$store.dispatch("SIGN_UP", body);
       if (result[0] == "R") {
-        return this.needsFillIn = true;
+        return (this.needsFillIn = true);
       }
       this.$router.push({ path: "/" });
     },
