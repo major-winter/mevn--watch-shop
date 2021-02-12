@@ -41,9 +41,15 @@ router.post('/api/users/login', async (req, res) => {
       } else {
         return res.send({ user, token: existedToken.token })
       }
+    } else {
+      const token = await user.generateAuthToken()
+      if (cart) {
+        return res.send({ user, token, cartId: cart._id })
+      } else {
+        res.send({ user, token })
+      }
     }
-    const token = await user.generateAuthToken()
-    res.send({ user, token })
+
   } catch (error) {
     res.status(400).send({ message: 'Invalid username or password' })
   }

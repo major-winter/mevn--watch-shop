@@ -74,7 +74,6 @@ const actions = {
       commit('SET_CART', { cart, cartId: data._id })
     }
     else {
-      console.log('here')
       const { data } = await axios.post(`/api/cart`, { cartItems: cart }, {
         headers: {
           'Authorization': `Bearer ${token} `
