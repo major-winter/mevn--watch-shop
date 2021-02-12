@@ -57,6 +57,7 @@ const actions = {
     const token = await JSON.parse(localStorage.getItem('token'))
     let cart = JSON.parse(localStorage.getItem('cart'))
     let cartId = JSON.parse(localStorage.getItem('cartId'))
+
     if (!cart) {
       cart = []
       cart.push(payload.product)
@@ -65,13 +66,16 @@ const actions = {
     }
 
     await saveToLocalStorage([{ 'cart': cart }])
+
     if (cartId !== 1) {
       const { data } = await axios.post(`/api/cart/${cartId}`, { cartItems: cart }, {
         headers: {
           'Authorization': `Bearer ${token} `
         }
       })
+
       commit('SET_CART', { cart, cartId: data._id })
+      
     }
     else {
       const { data } = await axios.post(`/api/cart`, { cartItems: cart }, {
