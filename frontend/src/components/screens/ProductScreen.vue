@@ -112,6 +112,8 @@ export default {
         product: this.product,
       });
 
+      
+
       if (addToCart) {
         this.spinner = false;
         this.isAdded = true;

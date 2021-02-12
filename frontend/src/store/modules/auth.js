@@ -76,13 +76,13 @@ const actions = {
         const { token, user, cartId } = data
         const userName = user.username
         let start = Date.now()
-        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }, { 'start': start }])
+        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId || 1 }, { 'start': start }])
         commit('SET_USER', user)
       } else {
         const { data } = await axios.post("/api/users/login", { ...requestBody, token })
         const { token, user, cartId } = data
         const userName = user.username
-        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }])
+        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId || 1 }])
         commit('SET_USER', user)
       }
 

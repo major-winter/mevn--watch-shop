@@ -13,10 +13,10 @@ router.get('/users/me', auth, async (req, res) => {
 // @endpoint /users
 // @access Public
 router.post('/api/users', async (req, res) => {
-  const user = new User(
-    req.body
-  )
   try {
+    const user = new User(
+      req.body
+    )
     await user.save()
     const token = await user.generateAuthToken()
     res.status(201).send({ user, token })
@@ -33,12 +33,17 @@ router.post('/api/users/login', async (req, res) => {
     const user = await User.findByCredentials(email, password)
 
     const existedToken = user.tokens.find(item => item.token == userToken)
+
     const cart = await Cart.findOne({ owner: user._id })
     if (existedToken) {
-      return res.send({ user, token: existedToken.token, cartId: cart._id })
+      if (cart) {
+        return res.send({ user, token: existedToken.token, cartId: cart._id })
+      } else {
+        return res.send({ user, token: existedToken.token })
+      }
     }
     const token = await user.generateAuthToken()
-    res.send({ user, token, cartId: cart._id })
+    res.send({ user, token })
   } catch (error) {
     res.status(400).send({ message: 'Invalid username or password' })
   }

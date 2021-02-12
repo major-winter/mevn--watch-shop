@@ -63,9 +63,9 @@ const actions = {
     } else {
       cart.push(payload.product)
     }
-    await saveToLocalStorage([{ 'cart': cart }])
 
-    if (cartId) {
+    await saveToLocalStorage([{ 'cart': cart }])
+    if (cartId !== 1) {
       const { data } = await axios.post(`/api/cart/${cartId}`, { cartItems: cart }, {
         headers: {
           'Authorization': `Bearer ${token} `
@@ -73,7 +73,8 @@ const actions = {
       })
       commit('SET_CART', { cart, cartId: data._id })
     }
-    if (!cartId) {
+    else {
+      console.log('here')
       const { data } = await axios.post(`/api/cart`, { cartItems: cart }, {
         headers: {
           'Authorization': `Bearer ${token} `
