@@ -2,8 +2,6 @@ const express = require('express')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 const Cart = require('../models/cartModel')
-const Product = require('../models/productModel')
-const User = require('../models/userModel')
 
 // POST /cart
 // @Description Create new cart
@@ -32,7 +30,6 @@ router.get('/api/cart', auth, async (req, res) => {
     if (cart === null) {
       return res.send({ message: 'You have no cart' })
     }
-    console.log(cart)
     res.send(cart)
 
   } catch (error) {

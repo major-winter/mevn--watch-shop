@@ -1,6 +1,6 @@
 <template>
   <div class="signup">
-    <app-modal v-if="needsFillIn" @close="needsFillIn = !needsFillIn">
+    <app-modal v-if="needsFillIn" @close="needsFillIn = !needsFillIn" class="text--danger">
       A problem has occurred. Please check again!
     </app-modal>
     <app-form

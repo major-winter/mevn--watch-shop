@@ -26,19 +26,19 @@
         </div>
 
         <div class="logo">
-          <router-link to="/" tag="div" class="white">
+          <router-link to="/" class="white text--decoration--none">
             <h1>OMEGA</h1>
           </router-link>
         </div>
 
         <div v-if="isAuth">
-          <router-link to="/profile" tag="div" class="white">
+          <router-link to="/profile" class="white text--decoration--none">
             Hello,
             {{ userName }}
           </router-link>
         </div>
 
-        <router-link to="/cart" tag="div" class="white">
+        <router-link to="/cart" class="white">
           <i class="fas fa-shopping-cart"></i>
         </router-link>
       </div>
@@ -120,17 +120,14 @@ export default {
 .background-img {
   position: relative;
   top: 4rem;
-  /* z-index: -1; */
 }
 
 .background-img img {
   width: 100%;
   height: 100vh;
   position: relative;
-  /* top: 6rem; */
   z-index: -2;
 }
-
 
 .nav {
   background: #333333;
@@ -166,8 +163,6 @@ export default {
   position: fixed;
   z-index: 5;
   top: -100vh;
-  /* top: 64px; */
-  /* left: -100%; */
   background: #333333;
   color: #fff;
   width: 100%;
@@ -193,14 +188,12 @@ export default {
   color: white;
 }
 
-.navbar__item > *{
+.navbar__item > * {
   color: #fff;
   text-decoration: none;
 }
 
 .navbar-show {
-  /* left: 0;
-   */
   top: 64px;
 }
 
@@ -208,9 +201,6 @@ export default {
   color: #fff;
 }
 
-.bg-dark {
-  background-color: #000;
-}
 
 ul,
 li {

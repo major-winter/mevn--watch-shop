@@ -39,3 +39,19 @@
 	font-weight: 600;
 	text-decoration: none;
 }
+
+.btn--bg--dark {
+	background-color: #333;
+	font-weight: 700;
+	color: #fff;
+	letter-spacing: 0.05rem;
+	font-size: 1.1rem;
+}
+
+.bg-dark {
+	background-color: #000;
+}
+
+.text--decoration--none {
+	text-decoration: none;
+}

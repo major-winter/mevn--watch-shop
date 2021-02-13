@@ -14,6 +14,9 @@
             class="mb-1 form--data__input"
             @input="$emit('onInput', $event.target)"
             :placeholder="input.placeholder"
+            :value="
+              formTitle === 'Shipping' ? value[input.label.toLowerCase()] : ''
+            "
             autocomplete="on"
           />
         </span>
@@ -39,7 +42,10 @@ export default {
       default: "Login",
     },
     value: {
-      type: String,
+      type: Object,
+      default: function () {
+        return {};
+      },
     },
   },
 };
@@ -54,9 +60,9 @@ export default {
   display: block;
 }
 
-.form--data input {
+.form--data__input {
   width: 100%;
-  height: 2rem;
+  height: 2.3rem;
   border: 1px solid #e0e0e0;
   padding-left: 0.2rem;
   font-size: 1rem;

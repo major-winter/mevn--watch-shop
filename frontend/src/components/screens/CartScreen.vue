@@ -143,7 +143,7 @@ export default {
     },
 
     toCheckoutPage() {
-      this.$router.push({ path: "/checkout" });
+      this.$router.push({ path: "/shipping" });
     },
   },
 };

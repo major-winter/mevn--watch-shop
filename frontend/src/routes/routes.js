@@ -7,8 +7,9 @@ const SignupScreen = () => import(/* webpackChunkName: "SignupScreen" */ '../com
 const NotFoundScreen = () => import(/* webpackChunkName: "NotFoundScreen" */ '../components/screens/NotFound')
 const ProfileScreen = () => import(/* webpackChunkName: "ProfileScreen" */ '../components/screens/ProfileScreen')
 const ContactScreen = () => import(/* webpackChunkName: "ContactScreen" */ '../components/screens/ContactScreen')
-const CheckoutScreen = () => import(/* webpackChunkName: "CheckoutScreen" */ '../components/screens/CheckoutScreen')
+const ShippingInfoScreen = () => import(/* webpackChunkName: "ShippingInfoScreen" */ '../components/screens/ShippingInfoScreen')
 const PaymentScreen = () => import(/* webpackChunkName: "PaymentScreen" */ '../components/screens/PaymentScreen')
+const ReviewOrderScreen = () => import(/* webpackChunkName: "ReviewOrderScreen" */ '../components/screens/ReviewOrderScreen')
 
 const router = new VueRouter({
   mode: "history",
@@ -58,9 +59,9 @@ const router = new VueRouter({
     },
 
     {
-      path: '/checkout',
-      name: 'checkoutScreen',
-      component: CheckoutScreen,
+      path: '/shipping',
+      name: 'shippingInfoScreen',
+      component: ShippingInfoScreen,
       meta: {
         isAuth: false
       }
@@ -70,6 +71,15 @@ const router = new VueRouter({
       path: '/payment',
       name: 'paymentScreen',
       component: PaymentScreen,
+      meta: {
+        isAuth: false
+      }
+    },
+
+    {
+      path: '/order',
+      name: 'reviewOrderScreen',
+      component: ReviewOrderScreen,
       meta: {
         isAuth: false
       }
