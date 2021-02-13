@@ -1,13 +1,24 @@
 <template>
   <div class="login">
-    <app-modal v-if="needsFillIn" @close="needsFillIn = !needsFillIn"
+    <app-modal
+      v-if="needsFillIn"
+      @close="needsFillIn = !needsFillIn"
+      class="text--danger"
       >Email and Password can't be empty</app-modal
     >
 
-    <div v-if="error" class="text--danger text--center text--bold">
-      {{ error }}
-    </div>
-    <app-form :form-data="formData" @onInput="inputHandler($event, 'loginForm')">
+    <app-modal
+      v-if="error"
+      class="text--danger text--center text--bold"
+      @close="error = !error"
+    >
+      {{ error }}</app-modal
+    >
+
+    <app-form
+      :form-data="formData"
+      @onInput="inputHandler($event, 'loginForm')"
+    >
       <m-button class="mt-1 form--btn" @clicked="loginHandler">LOGIN</m-button>
 
       <div class="signup--link mt-1">
@@ -28,7 +39,6 @@ import mButton from "../ui/Button";
 import AppModal from "../ui/AppModal";
 import mixins from "../../mixins/getQtyMixins";
 import { USER_LOGIN } from "../../constants/authConstants";
-// import axios from "axios";
 
 export default {
   name: "LoginScreen",

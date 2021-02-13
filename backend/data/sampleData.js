@@ -67,6 +67,27 @@ const products = [
     image: 'https://cdn-images.farfetch-contents.com/16/06/37/63/16063763_30172986_600.jpg',
     qty: 0
   },
+
+  {
+    name: 'Audemars Piguet',
+    price: 1000000,
+    image: 'https://cdn-images.farfetch-contents.com/16/26/43/50/16264350_31517971_1000.jpg',
+    qty: 4
+  },
+
+  {
+    name: 'Gucci',
+    price: 32000,
+    image: 'https://cdn-images.farfetch-contents.com/16/19/81/14/16198114_31149281_1000.jpg',
+    qty: 6
+  },
+
+  {
+    name: 'Zenith',
+    price: 230000,
+    image: 'https://cdn-images.farfetch-contents.com/14/21/72/65/14217265_20425153_1000.jpg',
+    qty: 3
+  }
 ]
 
 module.exports = products

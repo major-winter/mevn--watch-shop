@@ -70,21 +70,12 @@ const actions = {
 
   async USER_LOGIN ({ commit }, requestBody) {
     try {
-      const token = JSON.parse(localStorage.getItem('token'))
-      if (!token) {
-        const { data } = await axios.post("/api/users/login", { ...requestBody })
-        const { token, user, cartId } = data
-        const userName = user.username
-        let start = Date.now()
-        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId || 1 }, { 'start': start }])
-        commit('SET_USER', user)
-      } else {
-        const { data } = await axios.post("/api/users/login", { ...requestBody, token })
-        const { token, user, cartId } = data
-        const userName = user.username
-        await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId || 1 }])
-        commit('SET_USER', user)
-      }
+      const { data } = await axios.post("/api/users/login", { ...requestBody })
+      const { token, user, cartId = 1 } = data
+      const userName = user.username
+      let start = Date.now()
+      await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }, { 'start': start }])
+      commit('SET_USER', user)
 
     } catch (error) {
       const { data } = error.response

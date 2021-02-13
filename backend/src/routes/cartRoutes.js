@@ -42,7 +42,7 @@ router.get('/api/cart', auth, async (req, res) => {
 // POST /api/cart/:id
 // @Description Add items to cart
 // @Access Private
-router.post('/api/cart/:id', auth, async (req, res) => {
+router.post('/api/cart/:cartid', auth, async (req, res) => {
   try {
     const existedCart = await Cart.findById(req.params.id)
 
@@ -81,11 +81,6 @@ router.delete('/api/cart/:id', auth, async (req, res) => {
     const { productId } = req.query
     const cart = await Cart.findById(req.params.id)
     await cart.deleteProductById(productId)
-    // if (cart.cartItems.length === 0) {
-    //   await cart.remove()
-    //   res.send()
-    // }
-
     await cart.save()
     res.send(cart)
   } catch (error) {

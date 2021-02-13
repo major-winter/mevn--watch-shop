@@ -7,6 +7,7 @@
           type="text"
           class="search__input"
           v-model="searchTerm"
+          placeholder="Search..."
           @input="getSearchProduct"
         />
         <button class="search__btn"><i class="fas fa-search"></i></button>

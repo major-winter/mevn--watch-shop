@@ -29,25 +29,16 @@ router.post('/api/users', async (req, res) => {
 // POST login user
 router.post('/api/users/login', async (req, res) => {
   try {
-    const { email, password, token: userToken } = req.body
+    const { email, password } = req.body
     const user = await User.findByCredentials(email, password)
 
-    const existedToken = user.tokens.find(item => item.token == userToken)
-
     const cart = await Cart.findOne({ owner: user._id })
-    if (existedToken) {
-      if (cart) {
-        return res.send({ user, token: existedToken.token, cartId: cart._id })
-      } else {
-        return res.send({ user, token: existedToken.token })
-      }
+
+    const token = await user.generateAuthToken()
+    if (cart) {
+      return res.send({ user, token, cartId: cart._id })
     } else {
-      const token = await user.generateAuthToken()
-      if (cart) {
-        return res.send({ user, token, cartId: cart._id })
-      } else {
-        res.send({ user, token })
-      }
+      res.send({ user, token })
     }
 
   } catch (error) {
