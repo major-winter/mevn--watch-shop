@@ -48,6 +48,7 @@ const actions = {
     if (data.message) {
       commit('SET_INITIAL_CART', [])
     } else {
+      console.log(data.cartItems)
       localStorage.setItem('cart', JSON.stringify(data.cartItems))
       commit('SET_INITIAL_CART', data.cartItems)
     }
@@ -57,7 +58,6 @@ const actions = {
     const token = await JSON.parse(localStorage.getItem('token'))
     let cart = JSON.parse(localStorage.getItem('cart'))
     let cartId = JSON.parse(localStorage.getItem('cartId'))
-
     if (!cart) {
       cart = []
       cart.push(payload.product)
@@ -73,9 +73,7 @@ const actions = {
           'Authorization': `Bearer ${token} `
         }
       })
-
       commit('SET_CART', { cart, cartId: data._id })
-      
     }
     else {
       const { data } = await axios.post(`/api/cart`, { cartItems: cart }, {
