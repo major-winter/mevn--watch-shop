@@ -19,6 +19,7 @@ const getters = {
 
 const mutations = {
   SET_INITIAL_CART (state, payload) {
+    console.log(payload)
     state.cart = [...payload]
   },
 
@@ -48,6 +49,7 @@ const actions = {
     if (data.message) {
       commit('SET_INITIAL_CART', [])
     } else {
+
       localStorage.setItem('cart', JSON.stringify(data.cartItems))
       commit('SET_INITIAL_CART', data.cartItems)
     }

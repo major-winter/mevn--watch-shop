@@ -92,7 +92,7 @@ const actions = {
     let start = await JSON.parse(localStorage.getItem('start'))
     let end = Date.now()
     let timer = Math.floor((end - start) / 1000)
-    if (timer > 600 && start) {
+    if (timer > 3600 && start) {
       commit('SHOW_MODAL', true)
       return { logout: true }
     }
