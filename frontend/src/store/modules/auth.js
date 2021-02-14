@@ -57,9 +57,9 @@ const actions = {
   async SIGN_UP ({ commit }, payload) {
     try {
       const { data } = await axios.post("/api/users", payload)
-      const { token, user } = data
+      const { token, user, cartId = 1 } = data
       const userName = user.username
-      await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }])
+      await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }])
       commit('SIGN_UP', user)
       return { result: data }
     } catch (error) {
@@ -84,7 +84,7 @@ const actions = {
   },
 
   async USER_LOGOUT ({ commit }) {
-    await removeFromLocalStorage(['token', 'user', 'cart', 'cartId', 'userName', 'start'])
+    await removeFromLocalStorage(['token', 'user', 'cart', 'cartId', 'userName', 'start', 'checkoutForm'])
     commit('REMOVE_TOKEN')
   },
 
