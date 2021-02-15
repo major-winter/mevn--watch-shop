@@ -34,6 +34,7 @@
 import ProductCard from "./ui/ProductCard.vue";
 import axios from "axios";
 import AppLoader from "./ui/AppLoader";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Products",
@@ -41,7 +42,6 @@ export default {
     return {
       products: [],
       searchTerm: "",
-      isLoading: false,
       error: "",
     };
   },
@@ -51,19 +51,25 @@ export default {
     AppLoader,
   },
 
+  computed: {
+    ...mapGetters({
+      isLoading: "getLoading",
+    }),
+  },
+
   created() {
     this.getProduct();
   },
 
-  updated() {
-    this.isLoading = false;
-  },
-
   methods: {
+    ...mapMutations({ loading: "LOADING" }),
+
     async getProduct() {
+      this.loading(true);
       this.error = "";
       const { data } = await axios.get("/api/products");
       this.products = data;
+      this.loading(false);
     },
 
     async getSearchProduct() {

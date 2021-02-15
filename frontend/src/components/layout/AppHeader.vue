@@ -27,7 +27,8 @@
 
         <div class="logo">
           <router-link to="/" class="white text--decoration--none">
-            <h1>OMEGA</h1>
+            <!-- <h1>OMEGA</h1> -->
+            <h1><i class="fas fa-dragon"></i></h1>
           </router-link>
         </div>
 

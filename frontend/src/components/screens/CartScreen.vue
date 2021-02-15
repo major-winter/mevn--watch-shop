@@ -70,6 +70,7 @@
 import SelectBox from "../ui/SelectBox";
 import mButton from "../ui/Button";
 import AppLoader from "../ui/AppLoader";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "CartScreen",
@@ -87,17 +88,13 @@ export default {
       products.forEach((product) => {
         totalPrice += product.price * product.purchaseQty;
       });
-
       return totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
 
-    getCartItems() {
-      return this.$store.getters.getCart;
-    },
-
-    isLoading() {
-      return this.$store.getters.getLoading;
-    },
+    ...mapGetters({
+      getCartItems: "getCart",
+      isLoading: "getLoading",
+    }),
   },
 
   components: {
@@ -108,12 +105,20 @@ export default {
 
   created() {
     this.checkLogInStatus();
-    this.initCart();
+    this.initCartHandler();
     this.products = this.getCartItems;
   },
 
   methods: {
-    async initCart() {
+    ...mapActions({
+      updateCart: "UPDATE_CART",
+    }),
+
+    ...mapMutations({
+      loading: "LOADING",
+    }),
+
+    async initCartHandler() {
       await this.$store.dispatch("GET_CART_ITEMS");
     },
 
@@ -121,17 +126,19 @@ export default {
       this.$router.push({ path: "/" });
     },
 
-    selectHandler({ id, purchaseQty }) {
+    async selectHandler({ id, purchaseQty }) {
+      this.loading(true);
       const targetProduct = this.products.find((product) => product._id === id);
       const product = { ...targetProduct, purchaseQty: +purchaseQty };
-      this.$store.dispatch("UPDATE_CART", product);
+      const done = await this.updateCart(product);
+      done && this.loading(false);
     },
 
     async removeProductHandler(e) {
-      this.$store.commit("LOADING", true);
+      this.loading(true);
       const productId = e.target.parentNode.getAttribute("data-id");
       await this.$store.dispatch("REMOVE_FROM_CART", productId);
-      this.$store.commit("LOADING", false);
+      this.loading(false);
     },
 
     async checkLogInStatus() {

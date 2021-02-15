@@ -53,7 +53,6 @@ const actions = {
     if (data.message) {
       commit('SET_INITIAL_CART', [])
     } else {
-
       localStorage.setItem('cart', JSON.stringify(data.cartItems))
       commit('SET_INITIAL_CART', data.cartItems)
     }
@@ -114,6 +113,7 @@ const actions = {
       }
     })
     commit('UPDATE_CART', cart)
+    return true
   },
 
   async REMOVE_FROM_CART ({ commit }, payload) {
