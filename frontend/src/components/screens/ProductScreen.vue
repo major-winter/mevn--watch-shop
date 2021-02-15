@@ -4,6 +4,7 @@
       v-if="showModal"
       @routeHandler="routeHandler"
       @close="showModal = !showModal"
+      :route="true"
     >
       Please Log in!
       <template v-slot:router>Go to Login</template>
