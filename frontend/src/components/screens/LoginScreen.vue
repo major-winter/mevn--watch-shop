@@ -96,6 +96,7 @@ export default {
       const data = await this.store.dispatch(USER_LOGIN, requestBody);
 
       if (data) {
+        this.isLoggingIn = false;
         return (this.error = data);
       }
 
