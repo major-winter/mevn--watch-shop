@@ -17,9 +17,13 @@
 
     <app-form
       :form-data="formData"
+      :value="loginForm"
       @onInput="inputHandler($event, 'loginForm')"
     >
-      <m-button class="mt-1 form--btn" @clicked="loginHandler">LOGIN</m-button>
+      <m-button class="mt-1 form--btn" @clicked="loginHandler">
+        <span v-if="isLoggingIn">Logging In...</span>
+        <span v-else>LOGIN</span>
+      </m-button>
 
       <div class="signup--link mt-1">
         <p>
@@ -62,6 +66,7 @@ export default {
       store: null,
       error: "",
       needsFillIn: false,
+      isLoggingIn: false,
     };
   },
 
@@ -73,10 +78,12 @@ export default {
 
   created() {
     this.store = this.$store;
+    this.getUserEmail();
   },
 
   methods: {
     async loginHandler() {
+      this.isLoggingIn = true;
       if (this.loginForm.email === "" || this.loginForm.password === "") {
         return (this.needsFillIn = true);
       }
@@ -95,9 +102,18 @@ export default {
       await this.store.dispatch("GET_CART_ITEMS");
       const redirectTo = window.location.search.split("=")[1];
       if (this.store.getters.getStatus && redirectTo) {
+        this.isLoggingIn = false;
         this.$router.push({ path: redirectTo });
       } else {
+        this.isLoggingIn = false;
         this.$router.push({ path: "/" });
+      }
+    },
+
+    async getUserEmail() {
+      const email = await JSON.parse(localStorage.getItem("email"));
+      if (email) {
+        this.loginForm.email = email;
       }
     },
   },

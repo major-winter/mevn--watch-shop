@@ -73,8 +73,9 @@ const actions = {
       const { data } = await axios.post("/api/users/login", { ...requestBody })
       const { token, user, cartId = 1 } = data
       const userName = user.username
+      const userEmail = user.email
       let start = Date.now()
-      await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }, { 'start': start }])
+      await saveToLocalStorage([{ 'token': token }, { 'user': user }, { 'userName': userName }, { 'cartId': cartId }, { 'start': start }, { 'email': userEmail }])
       commit('SET_USER', user)
 
     } catch (error) {

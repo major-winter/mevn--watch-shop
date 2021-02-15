@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" @click.prevent="clickHandler">
+  <button class="btn" @click.prevent.stop="clickHandler">
     <slot> Button </slot>
   </button>
 </template>

@@ -14,9 +14,7 @@
             class="mb-1 form--data__input"
             @input="$emit('onInput', $event.target)"
             :placeholder="input.placeholder"
-            :value="
-              formTitle === 'Shipping' ? value[input.label.toLowerCase()] : ''
-            "
+            :value="value[input.label.toLowerCase()]"
             autocomplete="on"
           />
         </span>
