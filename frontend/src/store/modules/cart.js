@@ -55,6 +55,7 @@ const actions = {
     } else {
       localStorage.setItem('cart', JSON.stringify(data.cartItems))
       commit('SET_INITIAL_CART', data.cartItems)
+      return data
     }
   },
 
@@ -138,8 +139,7 @@ const actions = {
       }
     })
     commit('SET_FORM', data)
-
-  }
+  },
 }
 
 export default {
