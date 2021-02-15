@@ -1,11 +1,16 @@
 <template>
   <div class="signup">
-    <app-modal v-if="needsFillIn" @close="needsFillIn = !needsFillIn" class="text--danger">
+    <app-modal
+      v-if="needsFillIn"
+      @close="needsFillIn = !needsFillIn"
+      class="text--danger"
+    >
       A problem has occurred. Please check again!
     </app-modal>
     <app-form
       form-title="Sign Up"
       :form-data="formData"
+      :value="signupForm"
       @onInput="inputHandler($event, 'signupForm')"
     >
       <m-button class="signup__btn" @clicked="signupHandler">Sign Up</m-button>
@@ -36,7 +41,7 @@ export default {
         { label: "Address", placeholder: "Enter your address" },
       ],
       signupForm: {
-        username: "",
+        name: "",
         password: "",
         email: "",
         address: "",

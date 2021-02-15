@@ -52,9 +52,12 @@ const actions = {
     })
     if (data.message) {
       commit('SET_INITIAL_CART', [])
+      return { checkoutForm: {} }
     } else {
       localStorage.setItem('cart', JSON.stringify(data.cartItems))
       commit('SET_INITIAL_CART', data.cartItems)
+      commit('SET_FORM', data.checkoutForm)
+
       return data
     }
   },
