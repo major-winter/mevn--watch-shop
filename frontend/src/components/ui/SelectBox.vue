@@ -26,11 +26,6 @@
 <script>
 export default {
   name: "SelectBox",
-  data() {
-    return {
-      // selected: 0,
-    };
-  },
 
   props: {
     value: {

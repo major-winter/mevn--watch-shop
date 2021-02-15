@@ -4,7 +4,8 @@ import { saveToLocalStorage } from '../../utils/storeUtils'
 const state = () => ({
   cart: JSON.parse(localStorage.getItem('cart')) || [],
   cartId: '',
-  loading: false
+  loading: false,
+  checkoutForm: JSON.parse(localStorage.getItem('checkoutForm')) || {}
 })
 
 const getters = {
@@ -19,13 +20,16 @@ const getters = {
 
 const mutations = {
   SET_INITIAL_CART (state, payload) {
-    console.log(payload)
     state.cart = [...payload]
   },
 
   SET_CART (state, payload) {
     state.cart = [...payload.cart]
     state.cartId = payload.cartId
+  },
+
+  SET_FORM (state, payload) {
+    state.checkoutForm = payload
   },
 
   UPDATE_CART (state, payload) {
@@ -123,6 +127,18 @@ const actions = {
     localStorage.setItem('cart', JSON.stringify(data.cartItems))
     commit('UPDATE_CART', data.cartItems)
     commit('LOADING', false)
+  },
+
+  async SET_FORM ({ commit }, payload) {
+    const cartId = await JSON.parse(localStorage.getItem('cartId'))
+    const token = await JSON.parse(localStorage.getItem('token'))
+    const { data } = await axios.post(`/api/cart/${cartId}`, { checkoutForm: payload }, {
+      headers: {
+        'Authorization': `Bearer ${token} `
+      }
+    })
+    commit('SET_FORM', data)
+
   }
 }
 

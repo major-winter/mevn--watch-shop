@@ -11,7 +11,7 @@ router.post('/api/cart', auth, async (req, res) => {
     const { cartItems } = req.body
     const cart = new Cart({
       cartItems,
-      owner: req.user._id
+      owner: req.user._id,
     })
     await cart.save()
     await req.user.populate('cart').execPopulate()
@@ -45,8 +45,10 @@ router.post('/api/cart/:id', auth, async (req, res) => {
     const existedCart = await Cart.findById(req.params.id)
 
     if (existedCart) {
-      const { cartItems } = req.body
-      existedCart.cartItems = [...cartItems]
+      const { cartItems, checkoutForm } = req.body
+      cartItems && (existedCart.cartItems = [...cartItems])
+
+      checkoutForm ? existedCart.checkoutForm = { ...checkoutForm } : existedCart.checkoutForm = {}
       await existedCart.save()
     }
     res.send(existedCart)
@@ -85,7 +87,5 @@ router.delete('/api/cart/:id', auth, async (req, res) => {
     res.status(400).send()
   }
 })
-
-
 
 module.exports = router

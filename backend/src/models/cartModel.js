@@ -33,7 +33,21 @@ const cartSchema = new mongoose.Schema({
         ref: 'Product'
       }
     }
-  ]
+  ],
+  checkoutForm: {
+    'first name': {
+      type: String,
+    },
+    'last name': {
+      type: String
+    },
+    'phone number': {
+      type: String
+    },
+    'shipping address': {
+      type: String
+    }
+  }
 }, { timestamps: true })
 
 
