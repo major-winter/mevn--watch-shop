@@ -114,6 +114,7 @@ export default {
         productId: data._id,
         countInStock: data.qty,
       };
+      this.loading(false);
     },
 
     async addToCartHandler() {
