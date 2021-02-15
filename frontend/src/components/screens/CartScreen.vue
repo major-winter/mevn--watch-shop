@@ -2,9 +2,9 @@
   <div class="cart">
     <app-loader v-if="isLoading"></app-loader>
     <h1 class="mb-1">Your Cart</h1>
-    <div class="container cart--container" v-if="products.length > 0">
+    <div class="container cart--container" v-if="getCartItems.length > 0">
       <div
-        v-for="product in products"
+        v-for="product in getCartItems"
         :key="product._id"
         class="product--card mb-1"
       >
