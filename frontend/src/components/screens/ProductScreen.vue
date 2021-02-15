@@ -1,5 +1,13 @@
 <template>
   <div class="product--screen">
+    <app-modal
+      v-if="showModal"
+      @routeHandler="routeHandler"
+      @close="showModal = !showModal"
+    >
+      Please Log in!
+      <template v-slot:router>Go to Login</template>
+    </app-modal>
     <app-loader v-if="isLoading"></app-loader>
     <div class="product--screen__container" v-else>
       <div class="product--screen__details">
@@ -18,7 +26,7 @@
 
               <m-button
                 class="btn btn__cart mt-1"
-                v-on:clicked="addToCartHandler"
+                @clicked="addToCartHandler"
                 v-if="product.qty > 0 && !isAdded"
                 :disabled="spinner ? true : false"
               >
@@ -36,7 +44,7 @@
               <m-button
                 class="btn btn__buy mt-1"
                 @clicked="buyProductHandler"
-                v-if="product.qty > 0"
+                v-if="product && product.qty > 0"
               >
                 <app-mini-loader v-if="buySpinner"></app-mini-loader>
                 <span v-if="!buySpinner && !isAdded">Buy Now</span>
@@ -56,6 +64,8 @@ import mButton from "../ui/Button";
 import axios from "axios";
 import AppLoader from "../ui/AppLoader";
 import AppMiniLoader from "../ui/AppMiniLoader";
+import AppModal from "../ui/AppModal";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "ProductScreen",
@@ -65,30 +75,38 @@ export default {
       isAdded: false,
       spinner: false,
       buySpinner: false,
+      showModal: false,
     };
   },
   computed: {
-    isLoading() {
-      return this.$store.getters.getLoading;
-    },
+    ...mapGetters({
+      isLoading: "getLoading",
+      getStatus: "getStatus",
+    }),
   },
   components: {
     mButton,
     AppMiniLoader,
     AppLoader,
+    AppModal,
   },
 
   created() {
-    this.$store.commit("LOADING", true);
+    this.loading(true);
     this.getProduct();
     this.checkExistedProduct();
   },
 
   methods: {
+    ...mapMutations({
+      loading: "LOADING",
+    }),
+
     async getProduct() {
       const { data } = await axios.get(
         `/api/products/${this.$route.params.id}`
       );
+
       this.product = {
         ...data,
         purchaseQty: 1,
@@ -98,6 +116,9 @@ export default {
     },
 
     async addToCartHandler() {
+      if (this.getStatus === "") {
+        return (this.showModal = true);
+      }
       let cartProduct = {
         purchaseQty: 1,
         productName: this.product.name,
@@ -112,8 +133,6 @@ export default {
         product: this.product,
       });
 
-      
-
       if (addToCart) {
         this.spinner = false;
         this.isAdded = true;
@@ -121,9 +140,10 @@ export default {
     },
 
     async checkExistedProduct() {
-      this.$store.commit("LOADING", true);
+      this.loading(true);
       let cart = await JSON.parse(localStorage.getItem("cart"));
       if (cart) {
+        this.loading(false);
         const existedProduct = await cart.find(
           (product) => product._id === this.$route.params.id
         );
@@ -131,10 +151,12 @@ export default {
           this.isAdded = true;
         }
       }
-      this.$store.commit("LOADING", false);
     },
 
     async buyProductHandler() {
+      if (this.getStatus === "") {
+        return (this.showModal = true);
+      }
       if (this.isAdded) {
         return this.$router.push({ path: "/cart" });
       }
@@ -156,6 +178,13 @@ export default {
         this.buySpinner = false;
         this.$router.push({ path: "/cart" });
       }
+    },
+
+    routeHandler() {
+      this.$router.push({
+        path: "/login",
+        query: { productId: this.$route.params.id },
+      });
     },
   },
 };

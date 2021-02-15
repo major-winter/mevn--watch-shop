@@ -102,9 +102,15 @@ export default {
 
       await this.store.dispatch("GET_CART_ITEMS");
       const redirectTo = window.location.search.split("=")[1];
-      if (this.store.getters.getStatus && redirectTo) {
+
+      if (this.store.getters.getStatus && redirectTo === "cart") {
         this.isLoggingIn = false;
         this.$router.push({ path: redirectTo });
+      } else if (this.store.getters.getStatus && redirectTo) {
+        this.isLoggingIn = false;
+        this.$router.push({
+          path: `/product/${redirectTo}`,
+        });
       } else {
         this.isLoggingIn = false;
         this.$router.push({ path: "/" });

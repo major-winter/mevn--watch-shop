@@ -94,14 +94,23 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+
+  const token = JSON.parse(localStorage.getItem('token'))
   if (to.name === 'cartScreen' || to.name === 'profileScreen') {
-    const token = JSON.parse(localStorage.getItem('token'))
     if (!token) {
       next({ name: 'loginScreen', query: { redirect: 'cart' } })
     } else {
       next()
     }
-  } else {
+  } if (to.name === 'loginScreen') {
+
+    if (token) {
+      next({ path: '/' })
+    } else {
+      next()
+    }
+  }
+  else {
     next()
   }
 
