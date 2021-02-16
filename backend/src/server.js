@@ -1,21 +1,4 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const productRoutes = require('./routes/productRoutes')
-const userRoutes = require('./routes/userRoutes')
-const cartRoutes = require('./routes/cartRoutes')
-const path = require('path')
-require('./db/mongoose')
-
-dotenv.config()
-const app = express()
-
-app.use(express.json()) // Parse incoming request body to JSON
-
-
-app.use(productRoutes)
-app.use(userRoutes)
-app.use(cartRoutes)
-
+const app = require('./app')
 
 // static folder
 const publicDir = path.join(__dirname, '../public')

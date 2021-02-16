@@ -14,6 +14,10 @@
 	margin-top: 2rem;
 }
 
+.pl-05 {
+	padding-left: 0.5rem;
+}
+
 .text--bold {
 	font-weight: 700;
 }
@@ -24,6 +28,10 @@
 
 .text--left {
 	text-align: left;
+}
+
+.text--right{
+	text-align: right;
 }
 
 .text--danger {

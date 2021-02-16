@@ -7,7 +7,7 @@
       :route="true"
     >
       Please Log in!
-      <template v-slot:router>Go to Login</template>
+      <template v-slot:router>Login</template>
     </app-modal>
     <app-loader v-if="isLoading"></app-loader>
     <div class="product--screen__container" v-else>

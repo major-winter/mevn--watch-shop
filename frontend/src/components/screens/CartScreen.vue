@@ -88,6 +88,7 @@ export default {
       products.forEach((product) => {
         totalPrice += product.price * product.purchaseQty;
       });
+      localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
       return totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
 
