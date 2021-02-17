@@ -1,4 +1,21 @@
-const app = require('./app')
+const express = require('express')
+const path = require('path')
+const dotenv = require('dotenv')
+const productRoutes = require('./routes/productRoutes')
+const userRoutes = require('./routes/userRoutes')
+const cartRoutes = require('./routes/cartRoutes')
+
+require('./db/mongoose')
+
+dotenv.config()
+
+const app = express()
+
+app.use(express.json()) // Parse incoming request body to JSON
+
+app.use(productRoutes)
+app.use(userRoutes)
+app.use(cartRoutes)
 
 // static folder
 const publicDir = path.join(__dirname, '../public')
@@ -7,7 +24,6 @@ app.use(express.static(publicDir))
 
 // Handle SPA
 app.get('/*', (req, res) => res.sendFile(spaDir))
-
 
 const port = process.env.PORT || 5005
 
