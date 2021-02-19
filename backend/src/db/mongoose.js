@@ -6,8 +6,8 @@ const mongo_cloud = process.env.MONGODB_CLOUD_URL
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(mongo_cloud, { useNewUrlParser: true, useCreateIndex: true })
-    console.log(`Database connected! at ${mongo_cloud}`)
+    await mongoose.connect(mongo_cloud, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology:true })
+    console.log(`Database connected!`)
   } catch (error) {
     console.log('Error', error)
   }

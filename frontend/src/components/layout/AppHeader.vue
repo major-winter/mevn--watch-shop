@@ -27,8 +27,7 @@
 
         <div class="logo">
           <router-link to="/" class="white text--decoration--none">
-            <!-- <h1>OMEGA</h1> -->
-            <h1><i class="fas fa-dragon"></i></h1>
+            <h1><i class="far fa-clock"></i></h1>            
           </router-link>
         </div>
 
@@ -113,10 +112,10 @@ export default {
   height: 10vh;
 }
 
-.logo img {
+/* .logo img {
   width: 3rem;
   height: auto;
-}
+} */
 
 .background-img {
   position: relative;
