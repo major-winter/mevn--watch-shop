@@ -76,6 +76,7 @@ export default {
 .signup__btn {
   background-color: #333333;
   color: #fff;
+  width: 100%;
 }
 .slide-fade-enter-active {
   transition: all 0.3s ease;

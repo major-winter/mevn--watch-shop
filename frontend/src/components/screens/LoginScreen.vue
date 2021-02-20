@@ -129,6 +129,9 @@ export default {
 </script>
 
 <style scoped>
+.form--btn {
+  width: 100%;
+}
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }
