@@ -11,18 +11,30 @@ module.exports = {
       }
     },
 
+    devtool: false,
+
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+    },
+
     optimization: {
       splitChunks: {
-        chunks: 'all'
+        name:'hehe',
+        chunks: 'all',
+        minSize: 10000,
+        maxSize: 25000,
       }
     }
   },
-  
+
   chainWebpack: config => {
     config.plugin('html').tap(args => {
       args[0].title = 'Watch Boutique'
       return args
     }),
       config.plugins.delete('prefetch')
+
   }
 }

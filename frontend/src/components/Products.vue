@@ -73,8 +73,7 @@ export default {
     },
 
     async getSearchProduct() {
-      if (this.searchTerm === "") return this.getProduct();
-
+      // if (this.searchTerm === "") return this.getProduct();
       const { data } = await axios.get(
         `/api/products?search=${this.searchTerm}`
       );
@@ -119,6 +118,7 @@ export default {
 }
 
 .search__input {
+  display: inline-block;
   border: 0;
   outline: #333333;
   width: 15rem;
@@ -134,7 +134,7 @@ export default {
 .search__btn {
   display: inline-block;
   position: absolute;
-  left: 70%;
+  right: 10%;
   background-color: #333333;
   color: #fff;
   border: none;

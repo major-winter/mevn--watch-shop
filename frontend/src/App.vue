@@ -22,6 +22,7 @@
 import AppHeader from "./components/layout/AppHeader";
 import AppFooter from "./components/layout/AppFooter";
 import AppModal from "./components/ui/AppModal";
+import mixins from './mixins/mixin'
 
 export default {
   name: "App",
@@ -30,6 +31,8 @@ export default {
       isLoggedOut: false,
     };
   },
+
+  mixins:[mixins],
 
   computed: {
     showModal() {
@@ -43,20 +46,15 @@ export default {
     AppModal,
   },
 
-  created() {
-    this.$store.getters.isLoggedIn; //Check if the user has logged in
-    this.checkLogInStatus();
-  },
-
-  methods: {
-    async checkLogInStatus() {
-      const { logout } = await this.$store.dispatch("INIT_AUTH");
-      if (logout) {
-        this.isLoggedOut = true;
-        this.$store.dispatch("USER_LOGOUT");
-      }
-    },
-  },
+  // methods: {
+  //   async checkLogInStatus() {
+  //     const { logout } = await this.$store.dispatch("INIT_AUTH");
+  //     if (logout) {
+  //       this.isLoggedOut = true;
+  //       this.$store.dispatch("USER_LOGOUT");
+  //     }
+  //   },
+  // },
 };
 </script>
 

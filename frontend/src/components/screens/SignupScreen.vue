@@ -1,12 +1,14 @@
 <template>
   <div class="signup">
-    <app-modal
-      v-if="needsFillIn"
-      @close="needsFillIn = !needsFillIn"
-      class="text--danger"
-    >
-      A problem has occurred. Please check again!
-    </app-modal>
+    <transition name="slide-fade">
+      <app-modal
+        v-if="needsFillIn"
+        @close="needsFillIn = !needsFillIn"
+        class="text--danger"
+      >
+        A problem has occurred. Please check again!
+      </app-modal>
+    </transition>
     <app-form
       form-title="Sign Up"
       :form-data="formData"
@@ -22,7 +24,7 @@
 import AppForm from "../ui/AppForm";
 import mButton from "../ui/Button";
 import AppModal from "../ui/AppModal";
-import mixins from "../../mixins/getQtyMixins";
+import mixins from "../../mixins/mixin";
 
 export default {
   name: "SignupScreen",
@@ -74,5 +76,15 @@ export default {
 .signup__btn {
   background-color: #333333;
   color: #fff;
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -1,16 +1,18 @@
 <template>
   <div class="login">
-    <app-modal
-      v-if="needsFillIn"
-      @close="needsFillIn = !needsFillIn"
-      class="text--danger"
-      >Email and Password can't be empty</app-modal
-    >
+    <transition name="slide-fade">
+      <app-modal
+        v-if="needsFillIn"
+        @close="needsFillIn = !needsFillIn"
+        class="text--danger"
+        >Email and Password can't be empty</app-modal
+      >
+    </transition>
 
     <app-modal
       v-if="error"
       class="text--danger text--center text--bold"
-      @close="error = !error"
+      @close="closeModalHandler"
     >
       {{ error }}</app-modal
     >
@@ -41,8 +43,7 @@
 import AppForm from "../ui/AppForm";
 import mButton from "../ui/Button";
 import AppModal from "../ui/AppModal";
-import mixins from "../../mixins/getQtyMixins";
-import { USER_LOGIN } from "../../constants/authConstants";
+import mixins from "../../mixins/mixin";
 
 export default {
   name: "LoginScreen",
@@ -85,6 +86,7 @@ export default {
     async loginHandler() {
       this.isLoggingIn = true;
       if (this.loginForm.email === "" || this.loginForm.password === "") {
+        this.isLoggingIn = false;
         return (this.needsFillIn = true);
       }
 
@@ -93,12 +95,7 @@ export default {
         password: this.loginForm.password,
       };
 
-      const data = await this.store.dispatch(USER_LOGIN, requestBody);
-
-      if (data) {
-        this.isLoggingIn = false;
-        return (this.error = data);
-      }
+      await this.store.dispatch("USER_LOGIN", requestBody);
 
       await this.store.dispatch("GET_CART_ITEMS");
       const redirectTo = window.location.search.split("=")[1];
@@ -123,9 +120,23 @@ export default {
         this.loginForm.email = email;
       }
     },
+
+    closeModalHandler() {
+      this.error = !this.error;
+    },
   },
 };
 </script>
 
 <style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  opacity: 0;
+}
 </style>

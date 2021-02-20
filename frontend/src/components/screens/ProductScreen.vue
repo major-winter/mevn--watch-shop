@@ -1,14 +1,16 @@
 <template>
   <div class="product--screen">
-    <app-modal
-      v-if="showModal"
-      @routeHandler="routeHandler"
-      @close="showModal = !showModal"
-      :route="true"
-    >
-      Please Log in!
-      <template v-slot:router>Login</template>
-    </app-modal>
+    <transition name='slide-fade'>
+      <app-modal
+        v-if="showModal"
+        @routeHandler="routeHandler"
+        @close="showModal = !showModal"
+        :route="true"
+      >
+        Please Log in!
+        <template v-slot:router>Login</template>
+      </app-modal>
+    </transition>
     <app-loader v-if="isLoading"></app-loader>
     <div class="product--screen__container" v-else>
       <div class="product--screen__details">
@@ -235,5 +237,15 @@ export default {
   border: none;
   color: #fff;
   font-weight: 400;
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  opacity: 0;
 }
 </style>
