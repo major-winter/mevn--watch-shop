@@ -9,7 +9,10 @@
         </li>
 
         <li>
-          <m-button @clicked="signOutHandler" class="mt-1 text--color--dark">
+          <m-button
+            @clicked="signOutHandler"
+            class="mt-1 text--color--dark sign--out__btn"
+          >
             <i class="fas fa-sign-out-alt"></i> Sign Out
           </m-button>
         </li>
@@ -57,5 +60,10 @@ export default {
 
 .profile__list-items {
   list-style: none;
+}
+
+.sign--out__btn {
+  width: 100%;
+  color: #333;
 }
 </style>

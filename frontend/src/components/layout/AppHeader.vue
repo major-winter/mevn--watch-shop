@@ -27,7 +27,7 @@
 
         <div class="logo">
           <router-link to="/" class="white text--decoration--none">
-            <h1><i class="far fa-clock"></i></h1>            
+            <h1><i class="far fa-clock"></i></h1>
           </router-link>
         </div>
 
@@ -196,9 +196,14 @@ export default {
   color: #fff;
 }
 
-
 ul,
 li {
   padding: 0;
+}
+
+@media (orientation: landscape) {
+  .header {
+    height: 20vh;
+  }
 }
 </style>
