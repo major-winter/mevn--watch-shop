@@ -24,12 +24,11 @@ export default {
   margin: 0 auto;
   text-align: center;
   border-radius: 0.1rem;
-  /* box-shadow: -0.1rem 0.1rem 0.02rem 0.1rem grey; */
   font-weight: 400;
   font-size: 1rem;
   display: inline-block;
   vertical-align: middle;
-  color: #333333;
+  color: #fff;
 }
 
 button:disabled {

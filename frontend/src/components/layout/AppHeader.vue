@@ -112,11 +112,6 @@ export default {
   height: 10vh;
 }
 
-/* .logo img {
-  width: 3rem;
-  height: auto;
-} */
-
 .background-img {
   position: relative;
   top: 4rem;

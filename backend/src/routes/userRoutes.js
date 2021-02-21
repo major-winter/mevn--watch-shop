@@ -30,6 +30,7 @@ router.post('/api/users', async (req, res) => {
 router.post('/api/users/login', async (req, res) => {
   try {
     const { email, password } = req.body
+
     const user = await User.findByCredentials(email, password)
 
     const cart = await Cart.findOne({ owner: user._id })

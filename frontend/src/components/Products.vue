@@ -1,6 +1,7 @@
 <template>
   <div class="product">
     <app-loader v-if="isLoading"></app-loader>
+    <AppSwiper />
     <div class="container product--item--container">
       <div class="search-box mb-1">
         <input
@@ -32,8 +33,9 @@
 
 <script>
 import ProductCard from "./ui/ProductCard.vue";
-import axios from "axios";
 import AppLoader from "./ui/AppLoader";
+import AppSwiper from "./ui/AppSwiper";
+import axios from "axios";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -49,6 +51,7 @@ export default {
   components: {
     ProductCard,
     AppLoader,
+    AppSwiper,
   },
 
   computed: {
@@ -90,10 +93,6 @@ export default {
 </script>
 
 <style scoped>
-.product {
-  margin-top: 1rem;
-}
-
 .product--item--container {
   text-align: center;
 }

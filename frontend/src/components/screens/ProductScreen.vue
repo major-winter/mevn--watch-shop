@@ -1,6 +1,6 @@
 <template>
   <div class="product--screen">
-    <transition name='slide-fade'>
+    <transition name="slide-fade">
       <app-modal
         v-if="showModal"
         @routeHandler="routeHandler"
@@ -28,7 +28,7 @@
               <p>${{ product.price }}</p>
 
               <m-button
-                class="btn btn__cart mt-1"
+                class="btn__cart mt-1"
                 @clicked="addToCartHandler"
                 v-if="product.qty > 0 && !isAdded"
                 :disabled="spinner ? true : false"
@@ -45,7 +45,7 @@
               >
 
               <m-button
-                class="btn btn__buy mt-1"
+                class="btn__buy mt-1"
                 @clicked="buyProductHandler"
                 v-if="product && product.qty > 0"
               >
@@ -220,16 +220,13 @@ export default {
 
 .btn__cart,
 .btn__buy {
+  position: relative;
   border-radius: 0;
   box-shadow: none;
   background: white;
   border: 2px solid #e1e1e1;
   height: 2.5rem;
-}
-
-.btn__cart,
-.btn__buy {
-  position: relative;
+  color: #333333;
 }
 
 .btn__buy {
