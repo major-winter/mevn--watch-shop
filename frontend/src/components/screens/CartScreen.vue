@@ -51,7 +51,9 @@
           >Check out</m-button
         >
 
-        <m-button class="btn--continue text--color--dark" @clicked="continueShoppingHandler"
+        <m-button
+          class="btn--continue text--color--dark"
+          @clicked="continueShoppingHandler"
           >Continue Shopping</m-button
         >
       </div>
@@ -197,6 +199,10 @@ export default {
   margin-right: 1rem;
   background: #333333;
   color: #fff;
+}
+
+.btn--continue {
+  color: #333333;
 }
 
 .product--card {
