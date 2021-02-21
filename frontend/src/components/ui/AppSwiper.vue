@@ -1,44 +1,23 @@
 <template>
   <div class="swiper">
-      <button class="prev__btn" @click="showPrev">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <button class="next__btn" @click="showNext">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-      <VueSlickCarousel
-        v-bind="settings"
-        class="swiper-container"
-        ref="carousel"
-      >
-        <div class="swiper__item">
-          <img
-            src="https://cdn-images.farfetch-contents.com/15/98/95/44/15989544_29722225_1000.jpg"
-            alt="rolex"
-          />
-        </div>
-
-        <div class="swiper__item">
-          <img
-            src="https://cdn-images.farfetch-contents.com/15/76/46/94/15764694_28710965_1000.jpg"
-            alt="rolex"
-          />
-        </div>
-
-        <div class="swiper__item">
-          <img
-            src="https://cdn-images.farfetch-contents.com/16/06/37/63/16063763_30172986_600.jpg"
-            alt="rolex"
-          />
-        </div>
-
-        <div class="swiper__item">
-          <img
-            src="https://cdn-images.farfetch-contents.com/16/26/43/50/16264350_31517971_1000.jpg"
-            alt="rolex"
-          />
-        </div>
-      </VueSlickCarousel>
+    <button class="prev__btn" @click="showPrev">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="next__btn" @click="showNext">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    <VueSlickCarousel
+      v-bind="settings"
+      class="swiper-container"
+      ref="carousel"
+      v-if="products.length > 0"
+    >
+      <div class="swiper__item" v-for="product in products" :key="product._id">
+        <router-link :to="{ path: `/product/${product._id}` }">
+          <img :src="product.image" :alt="product.name" />
+        </router-link>
+      </div>
+    </VueSlickCarousel>
   </div>
 </template>
  
@@ -57,7 +36,7 @@ export default {
       products: [],
       settings: {
         arrows: false,
-        // autoplay: true,
+        autoplay: true,
         autoplaySpeed: 5000,
         dotsClass: "slick-dots custom-dot-class",
         edgeFriction: 0.35,

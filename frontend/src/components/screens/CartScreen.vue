@@ -51,7 +51,7 @@
           >Check out</m-button
         >
 
-        <m-button class="btn--continue" @clicked="continueShoppingHandler"
+        <m-button class="btn--continue text--color--dark" @clicked="continueShoppingHandler"
           >Continue Shopping</m-button
         >
       </div>

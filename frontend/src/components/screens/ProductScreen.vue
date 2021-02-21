@@ -228,6 +228,7 @@ export default {
   height: 2.5rem;
   color: #333333;
   width: 100%;
+  margin-top: 1rem;
 }
 
 .btn__buy {

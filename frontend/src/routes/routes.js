@@ -1,4 +1,6 @@
 import VueRouter from 'vue-router'
+import { routeHandler } from '../utils/routeUtils'
+
 const HomeScreen = () => import(/* webpackChunkName: "HomeScreen" */ '../components/Products')
 const ProductScreen = () => import(/* webpackChunkName: "ProductScreen" */ '../components/screens/ProductScreen')
 const CartScreen = () => import(/* webpackChunkName: "CartScreen" */ '../components/screens/CartScreen')
@@ -19,24 +21,25 @@ const router = new VueRouter({
       name: 'homeScreen',
       component: HomeScreen
     },
+
     {
       path: '/product/:id?',
       name: 'productScreen',
       component: ProductScreen
     },
+
     {
       path: '/cart',
       name: 'cartScreen',
       component: CartScreen,
-      meta: {
-        isAuth: false
-      }
     },
+
     {
       path: '/login',
       name: 'loginScreen',
-      component: LoginScreen
+      component: LoginScreen,
     },
+
     {
       path: '/signup',
       name: 'signUpScreen',
@@ -47,9 +50,7 @@ const router = new VueRouter({
       path: '/profile',
       name: 'profileScreen',
       component: ProfileScreen,
-      meta: {
-        isAuth: false
-      }
+
     },
 
     {
@@ -62,27 +63,21 @@ const router = new VueRouter({
       path: '/shipping',
       name: 'shippingInfoScreen',
       component: ShippingInfoScreen,
-      meta: {
-        isAuth: false
-      }
+
     },
 
     {
       path: '/payment',
       name: 'paymentScreen',
       component: PaymentScreen,
-      meta: {
-        isAuth: false
-      }
+
     },
 
     {
       path: '/order',
       name: 'reviewOrderScreen',
       component: ReviewOrderScreen,
-      meta: {
-        isAuth: false
-      }
+
     },
 
     {
@@ -94,27 +89,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-
-  const token = JSON.parse(localStorage.getItem('token'))
-  if (to.name === 'cartScreen' || to.name === 'profileScreen') {
-    if (!token) {
-      next({ name: 'loginScreen', query: { redirect: 'cart' } })
-    } else {
-      next()
-    }
-  } if (to.name === 'loginScreen') {
-
-    if (token) {
-      next({ path: '/' })
-    } else {
-      next()
-    }
-  }
-  else {
-    next()
-  }
-
-
+  routeHandler(to, from, next)
 })
 
 router.afterEach(() => {

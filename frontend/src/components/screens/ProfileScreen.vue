@@ -9,7 +9,7 @@
         </li>
 
         <li>
-          <m-button @clicked="signOutHandler" class="mt-1">
+          <m-button @clicked="signOutHandler" class="mt-1 text--color--dark">
             <i class="fas fa-sign-out-alt"></i> Sign Out
           </m-button>
         </li>

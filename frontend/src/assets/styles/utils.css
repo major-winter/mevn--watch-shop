@@ -30,7 +30,7 @@
 	text-align: left;
 }
 
-.text--right{
+.text--right {
 	text-align: right;
 }
 
@@ -40,6 +40,10 @@
 
 .text--success {
 	color: rgb(91, 255, 86);
+}
+
+.text--color--dark {
+	color: #333;
 }
 
 .link {
