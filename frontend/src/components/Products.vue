@@ -2,7 +2,7 @@
   <div class="product">
     <app-loader v-if="isLoading"></app-loader>
     <AppSwiper />
-    <div class="container product--item--container">
+    <div class="container product--item--container text--center">
       <div class="search-box mb-1">
         <input
           type="text"
@@ -93,9 +93,6 @@ export default {
 </script>
 
 <style scoped>
-.product--item--container {
-  text-align: center;
-}
 
 .product--item {
   display: grid;

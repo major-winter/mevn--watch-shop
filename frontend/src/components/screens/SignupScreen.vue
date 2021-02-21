@@ -23,8 +23,9 @@
 <script>
 import AppForm from "../ui/AppForm";
 import mButton from "../ui/Button";
-import AppModal from "../ui/AppModal";
 import mixins from "../../mixins/mixin";
+
+const AppModal = () => import("../ui/AppModal");
 
 export default {
   name: "SignupScreen",

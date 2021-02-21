@@ -23,6 +23,7 @@
 
 <script>
 import mButton from "@/components/ui/Button";
+
 export default {
   name: "ProfileScreen",
   data() {

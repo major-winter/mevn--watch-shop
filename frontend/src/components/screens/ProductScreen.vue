@@ -25,7 +25,11 @@
             </div>
 
             <div class="product--description mt-1">
-              <p>${{ product.price }}</p>
+              <p>
+                ${{
+                  product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }}
+              </p>
 
               <m-button
                 class="btn__cart mt-1"
@@ -65,10 +69,11 @@
 <script>
 import mButton from "../ui/Button";
 import axios from "axios";
-import AppLoader from "../ui/AppLoader";
-import AppMiniLoader from "../ui/AppMiniLoader";
-import AppModal from "../ui/AppModal";
 import { mapGetters, mapMutations } from "vuex";
+
+const AppModal = () => import("../ui/AppModal");
+const AppMiniLoader = () => import("../ui/AppMiniLoader");
+const AppLoader = () => import("../ui/AppLoader");
 
 export default {
   name: "ProductScreen",
