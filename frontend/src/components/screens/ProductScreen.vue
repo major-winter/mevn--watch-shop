@@ -227,6 +227,7 @@ export default {
   border: 2px solid #e1e1e1;
   height: 2.5rem;
   color: #333333;
+  width: 100%;
 }
 
 .btn__buy {
