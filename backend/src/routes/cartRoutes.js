@@ -3,6 +3,12 @@ const router = new express.Router()
 const auth = require('../middleware/auth')
 const Cart = require('../models/cartModel')
 
+const findUserCart = async (req, res, next) => {
+  const userCart = await Cart.findOne({ owner: req.user })
+  req.cart = userCart
+  next()
+}
+
 // POST /cart
 // @Description Create new cart
 // @Access Private
@@ -24,13 +30,12 @@ router.post('/api/cart', auth, async (req, res) => {
 // GET /cart
 // @Description Get all cart items
 // @Access Private
-router.get('/api/cart', auth, async (req, res) => {
+router.get('/api/cart', auth, findUserCart, async (req, res) => {
   try {
-    const cart = await Cart.findOne({ owner: req.user._id })
-    if (cart === null) {
+    if (req.cart === null) {
       return res.send({ message: 'You have no cart' })
     }
-    res.send(cart)
+    res.send(req.cart)
 
   } catch (error) {
     res.status(400).send('Invalid information')
@@ -40,9 +45,10 @@ router.get('/api/cart', auth, async (req, res) => {
 // POST /api/cart/:id
 // @Description Add items to cart
 // @Access Private
-router.post('/api/cart/:id', auth, async (req, res) => {
+router.post('/api/cart/:id', auth, findUserCart, async (req, res) => {
   try {
-    const existedCart = await Cart.findById(req.params.id)
+    // const existedCart = await Cart.findById(req.params.id)
+    const existedCart = req.cart
 
     if (existedCart) {
       const { cartItems, checkoutForm } = req.body
@@ -61,10 +67,11 @@ router.post('/api/cart/:id', auth, async (req, res) => {
 // POST /cart/:id
 // @Description Update cart
 // @Access Private
-router.patch('/api/cart/:id', auth, async (req, res) => {
+router.patch('/api/cart/:id', auth, findUserCart, async (req, res) => {
   try {
     const { productId, purQty } = req.query
-    const existedCart = await Cart.findById(req.params.id)
+    // const existedCart = await Cart.findById(req.params.id)
+    const existedCart = req.cart
     existedCart.udpateProductInCard(productId, purQty)
     await existedCart.save()
     res.send(existedCart)

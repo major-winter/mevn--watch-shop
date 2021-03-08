@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/userModel')
 const Cart = require('../models/cartModel')
+const Product = require('../models/productModel')
 const auth = require('../middleware/auth')
 
 // GET get all users
