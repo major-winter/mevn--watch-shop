@@ -1,23 +1,18 @@
 <template>
   <header class="header">
-    <section class="top">
-      <div class="container"></div>
-    </section>
+    <div class="navbar--mobile">
+      <ul class="navbar__list-items">
+        <li v-for="item in mobileNavMenu" :key="item.id" class="navbar__item">
+          <router-link :to="item.path">
+            <span @click="navbarHandler">
+              <i :class="item.icon"></i>
+              {{ item.name }}
+            </span>
+          </router-link>
+        </li>
+      </ul>
+    </div>
 
-    <nav class="navbar--mobile">
-      <div class="container">
-        <ul class="navbar__list-items">
-          <li v-for="item in mobileNavMenu" :key="item.id" class="navbar__item">
-            <router-link :to="item.path">
-              <span @click="navbarHandler">
-                <i :class="item.icon"></i>
-                {{ item.name }}
-              </span>
-            </router-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
     <nav class="nav">
       <div class="container d-flex nav--mobile">
         <div class="mobile-icon" @click="navbarHandler">
@@ -38,9 +33,22 @@
           </router-link>
         </div>
 
+        <div class="navbar">
+          <ul class="navbar__list-items">
+            <li v-for="item in navMenu" :key="item.id" class="navbar__item">
+              <router-link :to="item.path">
+                <span @click="navbarHandler">
+                  <i :class="item.icon"></i>
+                  {{ item.name }}
+                </span>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+        <!-- 
         <router-link to="/cart" class="white">
           <i class="fas fa-shopping-cart"></i>
-        </router-link>
+        </router-link> -->
       </div>
     </nav>
   </header>
@@ -73,6 +81,15 @@ export default {
         ];
       }
       return mobileNavMenu;
+    },
+
+    navMenu() {
+      let navMenu = [
+        { path: "/login", name: "Log in", icon: "fas fa-user-alt" },
+        { path: "/cart", name: "Cart", icon: "fas fa-shopping-cart" },
+      ];
+
+      return navMenu;
     },
 
     isAuth() {
@@ -124,7 +141,8 @@ export default {
   z-index: -2;
 }
 
-.nav {
+.nav,
+.navbar--mobile {
   background: #333333;
   height: 4rem;
   position: fixed;
@@ -152,6 +170,9 @@ export default {
 
 .moveToLeft {
   left: 0;
+}
+.navbar {
+  display: none;
 }
 
 .navbar--mobile {
@@ -204,6 +225,27 @@ li {
 @media (orientation: landscape) {
   .header {
     height: 20vh;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    display: inline-block;
+  }
+
+  .navbar__item{
+    margin-left: 1rem;
+  }
+
+  .navbar--mobile,
+  .mobile-icon {
+    display: none;
+  }
+
+  .navbar__list-items {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>
